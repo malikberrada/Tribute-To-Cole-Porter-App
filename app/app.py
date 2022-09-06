@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import io
+import os
 import base64
 import librosa
 import librosa.display
@@ -12,7 +12,10 @@ import tensorflow as tf
 
 # configuration
 
-im = Image.open("../pics/Jazz icon.jpg")
+try:
+    im = Image.open("../pics/Jazz icon.jpg")
+except Exception as e:
+    st.error("Can't open App icon.")
 st.set_page_config(
                     page_title="Tribute to Cole Porter",
                     page_icon=im,
@@ -20,12 +23,15 @@ st.set_page_config(
                     initial_sidebar_state="expanded",
                   )
 
-# sidebar
-im_about = Image.open("../pics/image_about.png")
-im_prediction = Image.open("../pics/image_prediction_2.png")
-im_singer = Image.open("../pics/image_singer_2.png")
-im_song = Image.open("../pics/image_song_2.png")
-im_search_bar = Image.open("../pics/search bar.png")
+try:
+    # sidebar
+    im_about = Image.open("../pics/image_about.png")
+    im_prediction = Image.open("../pics/image_prediction_2.png")
+    im_singer = Image.open("../pics/image_singer_2.png")
+    im_song = Image.open("../pics/image_song_2.png")
+    im_search_bar = Image.open("../pics/search bar.png")
+except Exception as e:
+    st.error("Can't open background images.")
 
 with st.sidebar:
     selected = option_menu("Main Menu", ["Home", 'Singers prediction', 'Songs per Singer', 'Singers per song', 'Search'\
@@ -45,28 +51,34 @@ def get_base64(bin_file):
     return base64.b64encode(data).decode()
 
 def set_background(form, png_file):
-    bin_str = get_base64(png_file)
-    page_bg_img = '''
-    <style>
-    .stApp {
-    background-image: url("data:image/png;base64,%s");
-    background-size: cover;
-    }
-    </style>
-    ''' % bin_str
-    form.markdown(page_bg_img, unsafe_allow_html=True)
+    try:
+        bin_str = get_base64(png_file)
+        page_bg_img = '''
+        <style>
+        .stApp {
+        background-image: url("data:image/png;base64,%s");
+        background-size: cover;
+        }
+        </style>
+        ''' % bin_str
+        form.markdown(page_bg_img, unsafe_allow_html=True)
 
-    form.markdown(page_bg_img, unsafe_allow_html=True)
-    return
+        form.markdown(page_bg_img, unsafe_allow_html=True)
+        return
+    except Exception as e:
+        form.error("Can't set background.")
 
 def features_extractor(file):
-    #load the file (audio)
-    audio, sample_rate = librosa.load(file, res_type='kaiser_fast')
-    #we extract mfcc
-    mfccs_features = librosa.feature.mfcc(y=audio, sr=sample_rate, n_mfcc=40)
-    #in order to find out scaled feature we do mean of transpose of value
-    mfccs_scaled_features = np.mean(mfccs_features.T,axis=0)
-    return mfccs_scaled_features
+    try:
+        #load the file (audio)
+        audio, sample_rate = librosa.load(file, res_type='kaiser_fast')
+        #we extract mfcc
+        mfccs_features = librosa.feature.mfcc(y=audio, sr=sample_rate, n_mfcc=40)
+        #in order to find out scaled feature we do mean of transpose of value
+        mfccs_scaled_features = np.mean(mfccs_features.T,axis=0)
+        return mfccs_scaled_features
+    except Exception as e:
+        st.error("Can't extract features.")
 
 bg1_path = r"../pics/Cole_porter_blur_bg_1.png"
 bg2_path = r"../pics/Cole_porter_blur_bg_2.png"
@@ -85,6 +97,24 @@ singers = ['Cole Porter',
          'Ray Charles',
          'Louis Armstrong']
 
+dict_singers_pics = {}
+
+dict_singers_pics['Cole Porter'] = "../pics/singers_pics/Coleporter.jpg"
+dict_singers_pics['Dionne Warwick'] = "../pics/singers_pics/Dionne_Warwick_2021.jpg"
+dict_singers_pics['Ella Fitzgerald'] = "../pics/singers_pics/Ella Fitzgerald.jpg"
+dict_singers_pics['Ethel Merman'] = "../pics/singers_pics/Ethel_merman_1967.jpg"
+dict_singers_pics['Frank Sinatra'] = "../pics/singers_pics/Frank Sinatra.jpg"
+dict_singers_pics['Harry Connick'] = "../pics/singers_pics/Harry_Connick.jpg"
+dict_singers_pics['Patti Lupone'] = "../pics/singers_pics/Patti-LuPone.jpg"
+dict_singers_pics['Sutton Foster'] = "../pics/singers_pics/Sutton-Foster.jpg"
+dict_singers_pics['Nat King Cole'] = "../pics/singers_pics/Nat King Cole.jpg"
+dict_singers_pics['Sarah Vaughan'] = "../pics/singers_pics/Sarah Vaughan 2.jpg"
+dict_singers_pics['Ray Charles'] = "../pics/singers_pics/Ray_Charles.jpg"
+dict_singers_pics['Louis Armstrong'] = "../pics/singers_pics/Louis_Armstrong.jpg"
+dict_singers_pics['Sutton Foster -  Tap dances'] = "../pics/singers_pics/Sutton-Foster - tap dances.gif"
+
+
+
 if selected == "Home":
     st.markdown('# <font color=#FFFFFF>Tribute to Cole Porter</font>', unsafe_allow_html=True)
     set_background(st, bg1_path)
@@ -100,28 +130,69 @@ elif selected == "Singers prediction":
     prediction_form = st.form("prediction")
     set_background(prediction_form, bg2_path)
     prediction_form.markdown('## <font color=#FFFFFF>Singers prediction</font>', unsafe_allow_html=True)
-    prediction_form.markdown("""<div style="text-align: left;"><font color=#FFFFFF>Enter a Cole Porter song:</font></div>""", unsafe_allow_html=True)
+    prediction_form.markdown("""<div style="text-align: left;font-size:16px"><font color=#FFFFFF>Enter a Cole Porter song:</font></div>""", unsafe_allow_html=True)
     model_path = r'../pickle/Cole-Porter-mfcc-neural-network-model-95p.h5'
     l_encoder_path = '../pickle/Cole-Porter-label-encoder.pkl'
-    file = prediction_form.file_uploader("",type=['mp3', 'ogg', 'flac', 'm4a'], accept_multiple_files=False)
+    try:
+        file = prediction_form.file_uploader("",type=['mp3', 'ogg', 'flac', 'm4a'], accept_multiple_files=False)
+    except Exception as e:
+        prediction_form.error("Invalid file format.")
     is_clk_pred = prediction_form.form_submit_button("Predict")
     if is_clk_pred:
         extracted_features_pred = []
-        relative_path = r'Data/Test/' + file.name
-        with open(relative_path, mode='wb') as f:
-            f.write(file.getvalue())
-        data = features_extractor(relative_path)
-        file_name = file.name
-        extracted_features_pred.append([data, relative_path, file_name])
-        pred_extracted_features_df = pd.DataFrame(extracted_features_pred, columns=['feature', 'relative_path', 'File_name'])
-        model = tf.keras.models.load_model(model_path)
-        input = open(l_encoder_path, 'rb')
-        le = pickle.load(input)
-        input.close()
-        X_pred = np.array(pred_extracted_features_df['feature'].tolist())
-        y_pred_test = model.predict(X_pred).argmax(axis=-1)
-        pred_extracted_features_df["Predicted_Class"] = y_pred_test
-        pred_extracted_features_df['Predicted_Class'] = le.inverse_transform(pred_extracted_features_df['Predicted_Class'])
-        pred_extracted_features_df["predicted_Singer"] = pred_extracted_features_df["Predicted_Class"].apply(
-            lambda x: ' - '.join(x.split(" - ")[1:]))
-        singer = pred_extracted_features_df["predicted_Singer"].values[-1]
+        try:
+            relative_path = r'../Data/Test/' + file.name
+            with open(relative_path, mode='wb') as f:
+                f.write(file.getvalue())
+            data = features_extractor(relative_path)
+            file_name = file.name
+            extracted_features_pred.append([data, relative_path, file_name])
+            pred_extracted_features_df = pd.DataFrame(extracted_features_pred, columns=['feature', 'relative_path', 'File_name'])
+        except Exception as e:
+            prediction_form.error("Invalid file format.")
+        try:
+            model = tf.keras.models.load_model(model_path)
+        except Exception as e:
+            prediction_form.error("Can't load the model.")
+        try:
+            input = open(l_encoder_path, 'rb')
+            le = pickle.load(input)
+            input.close()
+            X_pred = np.array(pred_extracted_features_df['feature'].tolist())
+        except Exception as e:
+            prediction_form.error("Can't load the encoder.")
+        try:
+            y_pred_test = model.predict(X_pred).argmax(axis=-1)
+            pred_extracted_features_df["Predicted_Class"] = y_pred_test
+            pred_extracted_features_df['Predicted_Class'] = le.inverse_transform(pred_extracted_features_df['Predicted_Class'])
+            pred_extracted_features_df["predicted_Singer"] = pred_extracted_features_df["Predicted_Class"].apply(
+                lambda x: ' - '.join(x.split(" - ")[1:]))
+            singer = pred_extracted_features_df["predicted_Singer"].values[-1]
+            prediction_form.markdown(
+                """<div style="text-align: left;font-size:17px"><font color=#FFFFFF>Its singer is </font><font color=#204E1E>""" + singer.split(" - ")[0] + """</font></div>""",
+                unsafe_allow_html=True)
+            os.remove(relative_path)
+            if ".gif" in dict_singers_pics[singer]:
+                try:
+                    file_ = open(dict_singers_pics[singer], "rb")
+                    contents = file_.read()
+                    data_url = base64.b64encode(contents).decode("utf-8")
+                    file_.close()
+                except Exception as e:
+                    prediction_form.error("Can't open the singer image.")
+                prediction_form.markdown(
+                    f'<br><img src="data:image/gif;base64,{data_url}" alt="cat gif">',
+                    unsafe_allow_html=True,
+                )
+            else:
+                try:
+                    image = Image.open(dict_singers_pics[singer])
+                except Exception as e:
+                    prediction_form.error("Can't open the singer image.")
+                prediction_form.image(image, caption='')
+            if "tap dances" in singer.lower():
+                prediction_form.markdown(
+                    """<div style="text-align: left;font-size:17px"><font color=#FFFFFF>Its a </font><font color=#204E1E>Tap dances</font><font color=#FFFFFF> song !</font></div>""",
+                    unsafe_allow_html=True)
+        except Exception as e:
+            prediction_form.error("Can't predict the Data.")
