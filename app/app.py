@@ -9,6 +9,7 @@ import pickle
 from PIL import Image
 from streamlit_option_menu import option_menu
 import tensorflow as tf
+import glob
 
 # configuration
 
@@ -22,16 +23,6 @@ st.set_page_config(
                     layout="wide",
                     initial_sidebar_state="expanded",
                   )
-
-try:
-    # sidebar
-    im_about = Image.open("../pics/image_about.png")
-    im_prediction = Image.open("../pics/image_prediction_2.png")
-    im_singer = Image.open("../pics/image_singer_2.png")
-    im_song = Image.open("../pics/image_song_2.png")
-    im_search_bar = Image.open("../pics/search bar.png")
-except Exception as e:
-    st.error("Can't open background images.")
 
 with st.sidebar:
     selected = option_menu("Main Menu", ["Home", 'Singers prediction', 'Songs per Singer', 'Singers per song', 'Search'\
@@ -82,6 +73,8 @@ def features_extractor(file):
 
 bg1_path = r"../pics/Cole_porter_blur_bg_1.png"
 bg2_path = r"../pics/Cole_porter_blur_bg_2.png"
+bg3_path = r"../pics/Cole_porter_blur_bg_3.png"
+bg4_path = r"../pics/Cole_porter_blur_bg_4.png"
 
 singers = ['Cole Porter',
          'Dionne Warwick',
@@ -96,6 +89,27 @@ singers = ['Cole Porter',
          'Sarah Vaughan',
          'Ray Charles',
          'Louis Armstrong']
+
+songs = ['Anything goes',
+ 'Begin the Beguine',
+ 'Blue Skies',
+ 'C est magnifique',
+ 'Don t Fence in Me',
+ 'Easy to Love',
+ 'Ev ry time we say goodbye',
+ 'I Get A Kick Out Of You',
+ 'I concentrate on you',
+ 'I love Paris',
+ 'I ve got you under my skin',
+ 'In the still of the night',
+ 'It s de-lovely',
+ 'Let s do it',
+ 'Love for Sale',
+ 'Night and day',
+ 'So In Love',
+ 'What is this thing called love',
+ 'You Do Something To Me',
+ 'You re the top']
 
 dict_singers_pics = {}
 
@@ -124,7 +138,7 @@ if selected == "Home":
         unsafe_allow_html=True)
     st.markdown("## <font color=#FFFFFF>Who's Cole Porter</font>", unsafe_allow_html=True)
     st.markdown(
-        """<div style="text-align: justify;"><p><strong><font color=#FFFFFF>Cole Albert Porter</strong> (June 9, 1891 – October 15, 1964) was an American composer and songwriter. Many of his songs became standards noted for their witty, urbane lyrics, and many of his scores found success on Broadway and in film.\nBorn to a wealthy family in Indiana, Porter defied his grandfather's wishes and took up music as a profession. Classically trained, he was drawn to musical theatre. After a slow start, he began to achieve success in the 1920s, and by the 1930s he was one of the major songwriters for the Broadway musical stage. Unlike many successful Broadway composers, Porter wrote the lyrics as well as the music for his songs. After a serious horseback riding accident in 1937, Porter was left disabled and in constant pain, but he continued to work. His shows of the early 1940s did not contain the lasting hits of his best work of the 1920s and 1930s, but in 1948 he made a triumphant comeback with his most successful musical, <i>Kiss Me, Kate</i>. It won the first Tony Award for Best Musical.\nPorter's other musicals include Fifty Million Frenchmen, DuBarry Was a Lady, Anything Goes, Can-Can and Silk Stockings. His numerous hit songs include "Night and Day", "Begin the Beguine", "I Get a Kick Out of You", "Well, Did You Evah!", "I've Got You Under My Skin", "My Heart Belongs to Daddy" and "You're the Top". He also composed scores for films from the 1930s to the 1950s, including Born to Dance (1936), which featured the song "You'd Be So Easy to Love"; Rosalie (1937), which featured "In the Still of the Night"; High Society (1956), which included "True Love"; and Les Girls (1957). For more additional information about Cole Porter, you can use the Huawei search bar.</font></p></div>""",
+        """<div style="text-align: justify;"><p><strong><font color=#FFFFFF>Cole Albert Porter</strong> (June 9, 1891 – October 15, 1964) was an American composer and songwriter. Many of his songs became standards noted for their witty, urbane lyrics, and many of his scores found success on Broadway and in film.\nBorn to a wealthy family in Indiana, Porter defied his grandfather's wishes and took up music as a profession. Classically trained, he was drawn to musical theatre. After a slow start, he began to achieve success in the 1920s, and by the 1930s he was one of the major songwriters for the Broadway musical stage. Unlike many successful Broadway composers, Porter wrote the lyrics as well as the music for his songs. After a serious horseback riding accident in 1937, Porter was left disabled and in constant pain, but he continued to work. His shows of the early 1940s did not contain the lasting hits of his best work of the 1920s and 1930s, but in 1948 he made a triumphant comeback with his most successful musical, <i>Kiss Me, Kate</i>. It won the first Tony Award for Best Musical.\nPorter's other musicals include Fifty Million Frenchmen, DuBarry Was a Lady, Anything Goes, Can-Can and Silk Stockings. His numerous hit songs include "Night and Day", "Begin the Beguine", "I Get a Kick Out of You", "Well, Did You Evah!", "I've Got You Under My Skin", "My Heart Belongs to Daddy" and "You're the Top". He also composed scores for films from the 1930s to the 1950s, including Born to Dance (1936), which featured the song "You'd Be So Easy to Love"; Rosalie (1937), which featured "In the Still of the Night"; High Society (1956), which included "True Love"; and Les Girls (1957). You can display the menu by pressing the right arrow at the top left. For more additional information about Cole Porter, you can use the Huawei search bar.</font></p></div>""",
         unsafe_allow_html=True)
 elif selected == "Singers prediction":
     prediction_form = st.form("prediction")
@@ -196,3 +210,126 @@ elif selected == "Singers prediction":
                     unsafe_allow_html=True)
         except Exception as e:
             prediction_form.error("Can't predict the Data.")
+elif selected == 'Songs per Singer':
+    set_background(st, bg3_path)
+    st.markdown('## <font color=#ECECEC>Songs per Singer</font>', unsafe_allow_html=True)
+    st.markdown("""<div style="text-align: left;font-size:16px"><font color=#ECECEC>Choose the singer:</font></div>""", unsafe_allow_html=True)
+    singer = st.selectbox('', ('Cole Porter',
+         'Dionne Warwick',
+         'Ella Fitzgerald',
+         'Ethel Merman',
+         'Frank Sinatra',
+         'Harry Connick',
+         'Patti Lupone',
+         'Sutton Foster',
+         'Sutton Foster -  Tap dances',
+         'Nat King Cole',
+         'Sarah Vaughan',
+         'Ray Charles',
+         'Louis Armstrong'))
+    songs_found = False
+    # assign directory
+    directory = '../Data/songs - ogg - Orig'
+    try:
+        for song in glob.iglob(f'{directory}/*'):
+            for sgr in glob.iglob(f'{song}/*'):
+                sgr = sgr.replace("\\", "/")
+                if sgr.split("/")[-1] == singer:
+                    cpt = 0
+                    for song_sp in glob.iglob(f'{sgr}/*'):
+                        audio_name = song_sp.replace("\\", "/")
+                        orig_audio_name = audio_name
+                        st.markdown(
+                            """<div style="text-align: left;font-size:16px"><font color=#ECECEC>""" + orig_audio_name.split("/")[-1].replace(".ogg", "") + """</font></div><br>""",
+                            unsafe_allow_html=True)
+                        try:
+                            audio_file = open(orig_audio_name, 'rb')
+                            audio_bytes = audio_file.read()
+                            st.audio(audio_bytes, format='audio/ogg', start_time=0)
+                        except Exception as e:
+                            st.error("Songs not found.")
+                        songs_found = True
+                        cpt += 1
+                        if cpt == 1:
+                            break
+                    break
+    except Exception as e:
+        st.error("Songs not found.")
+    if not songs_found:
+        st.error("Songs not found.")
+elif selected == 'Singers per song':
+    set_background(st, bg4_path)
+    st.markdown('## <font color=#FBFBFB>Singers per song</font>', unsafe_allow_html=True)
+    st.markdown("""<div style="text-align: left;font-size:16px"><font color=#FBFBFB>Choose the song:</font></div>""", unsafe_allow_html=True)
+    dict_songs = {}
+    dict_songs['Anything goes'] = 'Anything goes'
+    dict_songs['Begin the Beguine'] = 'Begin the Beguine'
+    dict_songs['Blue Skies'] = 'Blue Skies'
+    dict_songs['C est magnifique'] = "C'est magnifique"
+    dict_songs['Don t Fence in Me'] = "Don't Fence Me in"
+    dict_songs['Easy to Love'] = 'Easy to Love'
+    dict_songs['Ev ry time we say goodbye'] = "Ev'ry time we say goodbye"
+    dict_songs['I Get A Kick Out Of You'] = 'I Get A Kick Out Of You'
+    dict_songs['I concentrate on you'] = 'I concentrate on you'
+    dict_songs['I love Paris'] = 'I love Paris'
+    dict_songs['I ve got you under my skin'] = "I've got you under my skin"
+    dict_songs['In the still of the night'] = 'In the still of the night'
+    dict_songs['It s de-lovely'] = "It's de-lovely"
+    dict_songs['Let s do it'] = "Let's do it"
+    dict_songs['Love for Sale'] = 'Love for Sale'
+    dict_songs['Night and day'] = 'Night and day'
+    dict_songs['So In Love'] = 'So In Love'
+    dict_songs['What is this thing called love'] = 'What is this thing called love'
+    dict_songs['You Do Something To Me'] = 'You Do Something To Me'
+    dict_songs['You re the top'] = "You're the top"
+
+    song_name = st.selectbox('', (dict_songs['Anything goes'],
+                             dict_songs['Begin the Beguine'],
+                             dict_songs['Blue Skies'],
+                             dict_songs['C est magnifique'],
+                             dict_songs['Don t Fence in Me'],
+                             dict_songs['Easy to Love'],
+                             dict_songs['Ev ry time we say goodbye'],
+                             dict_songs['I Get A Kick Out Of You'],
+                             dict_songs['I concentrate on you'],
+                             dict_songs['I love Paris'],
+                             dict_songs['I ve got you under my skin'],
+                             dict_songs['In the still of the night'],
+                             dict_songs['It s de-lovely'],
+                             dict_songs['Let s do it'],
+                             dict_songs['Love for Sale'],
+                             dict_songs['Night and day'],
+                             dict_songs['So In Love'],
+                             dict_songs['What is this thing called love'],
+                             dict_songs['You Do Something To Me'],
+                             dict_songs['You re the top']))
+    songs_found = False
+    # assign directory
+    directory = '../Data/songs - ogg - Orig'
+    try:
+        for song in glob.iglob(f'{directory}/*'):
+            song = song.replace("\\", "/")
+            if song.split("/")[-1] == [k for k, v in dict_songs.items() if v == song_name][-1]:
+                for sgr in glob.iglob(f'{song}/*'):
+                    sgr = sgr.replace("\\", "/")
+                    cpt = 0
+                    for song_sp in glob.iglob(f'{sgr}/*'):
+                        audio_name = song_sp.replace("\\", "/")
+                        orig_audio_name = audio_name
+                        st.markdown(
+                            """<div style="text-align: left;font-size:16px"><font color=#FBFBFB>""" + orig_audio_name.split("/")[-2] + """</font></div><br>""",
+                            unsafe_allow_html=True)
+                        try:
+                            audio_file = open(orig_audio_name, 'rb')
+                            audio_bytes = audio_file.read()
+                            st.audio(audio_bytes, format='audio/ogg', start_time=0)
+                        except Exception as e:
+                            st.error("Exception: "+ e + "Singer not found.")
+                        songs_found = True
+                        cpt += 1
+                        if cpt == 1:
+                            break
+    except Exception as e:
+        st.error("Exception: "+ e + "Singer not found.")
+    if not songs_found:
+        st.error("Singer not found.")
