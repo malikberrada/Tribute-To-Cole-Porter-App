@@ -10,6 +10,18 @@ from PIL import Image
 from streamlit_option_menu import option_menu
 import tensorflow as tf
 import glob
+import multiprocessing
+import platform
+import threading
+from obs import ObsClient, CompletePart, CompleteMultipartUploadRequest, GetObjectHeader
+from time import sleep
+from stqdm import stqdm
+from streamlit.runtime.scriptrunner import add_script_run_ctx, get_script_run_ctx
+from threading import Thread
+import webbrowser
+import urllib.request
+import pathlib
+from persist import persist, load_widget_state
 
 # configuration
 
@@ -25,9 +37,9 @@ st.set_page_config(
                   )
 
 with st.sidebar:
-    selected = option_menu("Main Menu", ["Home", 'Singers prediction', 'Songs per Singer', 'Singers per song', 'Search'\
+    selected = option_menu("Main Menu", ["Home", 'Singers prediction', 'Songs per Singer', 'Singers per song', 'Storage Cloud', 'Cloud Downloading'\
                                        ],
-        icons=['house', 'bi bi-robot', 'bi bi-music-note-list', 'bi bi-music-note', 'bi bi-search'], menu_icon="cast", default_index=0, \
+        icons=['house', 'bi bi-robot', 'bi bi-music-note-list', 'bi bi-music-note', 'bi bi-cloud-upload', 'bi bi-cloud-download'], menu_icon="cast", default_index=0, \
  \
        styles={
            "nav-link-selected": {"background-color": "#616161"},
@@ -75,41 +87,7 @@ bg1_path = r"../pics/Cole_porter_blur_bg_1.png"
 bg2_path = r"../pics/Cole_porter_blur_bg_2.png"
 bg3_path = r"../pics/Cole_porter_blur_bg_3.png"
 bg4_path = r"../pics/Cole_porter_blur_bg_4.png"
-
-singers = ['Cole Porter',
-         'Dionne Warwick',
-         'Ella Fitzgerald',
-         'Ethel Merman',
-         'Frank Sinatra',
-         'Harry Connick',
-         'Patti Lupone',
-         'Sutton Foster',
-         'Sutton Foster -  Tap dances',
-         'Nat King Cole',
-         'Sarah Vaughan',
-         'Ray Charles',
-         'Louis Armstrong']
-
-songs = ['Anything goes',
- 'Begin the Beguine',
- 'Blue Skies',
- 'C est magnifique',
- 'Don t Fence in Me',
- 'Easy to Love',
- 'Ev ry time we say goodbye',
- 'I Get A Kick Out Of You',
- 'I concentrate on you',
- 'I love Paris',
- 'I ve got you under my skin',
- 'In the still of the night',
- 'It s de-lovely',
- 'Let s do it',
- 'Love for Sale',
- 'Night and day',
- 'So In Love',
- 'What is this thing called love',
- 'You Do Something To Me',
- 'You re the top']
+bg5_path = r"../pics/Cole_porter_blur_bg_3_5.png"
 
 dict_singers_pics = {}
 
@@ -127,19 +105,20 @@ dict_singers_pics['Ray Charles'] = "../pics/singers_pics/Ray_Charles.jpg"
 dict_singers_pics['Louis Armstrong'] = "../pics/singers_pics/Louis_Armstrong.jpg"
 dict_singers_pics['Sutton Foster -  Tap dances'] = "../pics/singers_pics/Sutton-Foster - tap dances.gif"
 
-
-
 if selected == "Home":
     st.markdown('# <font color=#FFFFFF>Tribute to Cole Porter</font>', unsafe_allow_html=True)
     set_background(st, bg1_path)
     st.markdown('## <font color=#FFFFFF>About</font>', unsafe_allow_html=True)
     st.markdown(
-        """<div style="text-align: justify;"><p><font color=#FFFFFF>This app was developed as a tribute to Cole Porter. It predicts the singers of the songs sung by Cole Porter and other famous Jazz singers. It can predict singers such as Louis Armstrong, Nat king Cole, Ray Charles, Frank Sinatra, Sarah Vaughan, Ethel Merman and Ella Fitzgerald.</font></p></div>""",
+        """<div style="text-align: justify;"><p><font color=#FFFFFF>This app was developed as a tribute to Cole Porter. Porter is one of the wittiest lyricists in the world, with a subtle expression and a great mastery of inner rhythm. We have developed this application to introduce the rhythms of popular songs to today's youth and awaken hidden talents around the world. Porter's work remains a model of elegance and refinement in the popular song genre. This app predicts the singers of the songs sung by Cole Porter and other famous Jazz singers. It can predict singers such as Louis Armstrong, Nat king Cole, Ray Charles, Frank Sinatra, Sarah Vaughan, Ethel Merman and Ella Fitzgerald.</font></p></div>""",
         unsafe_allow_html=True)
     st.markdown("## <font color=#FFFFFF>Who's Cole Porter</font>", unsafe_allow_html=True)
     st.markdown(
-        """<div style="text-align: justify;"><p><strong><font color=#FFFFFF>Cole Albert Porter</strong> (June 9, 1891 – October 15, 1964) was an American composer and songwriter. Many of his songs became standards noted for their witty, urbane lyrics, and many of his scores found success on Broadway and in film.\nBorn to a wealthy family in Indiana, Porter defied his grandfather's wishes and took up music as a profession. Classically trained, he was drawn to musical theatre. After a slow start, he began to achieve success in the 1920s, and by the 1930s he was one of the major songwriters for the Broadway musical stage. Unlike many successful Broadway composers, Porter wrote the lyrics as well as the music for his songs. After a serious horseback riding accident in 1937, Porter was left disabled and in constant pain, but he continued to work. His shows of the early 1940s did not contain the lasting hits of his best work of the 1920s and 1930s, but in 1948 he made a triumphant comeback with his most successful musical, <i>Kiss Me, Kate</i>. It won the first Tony Award for Best Musical.\nPorter's other musicals include Fifty Million Frenchmen, DuBarry Was a Lady, Anything Goes, Can-Can and Silk Stockings. His numerous hit songs include "Night and Day", "Begin the Beguine", "I Get a Kick Out of You", "Well, Did You Evah!", "I've Got You Under My Skin", "My Heart Belongs to Daddy" and "You're the Top". He also composed scores for films from the 1930s to the 1950s, including Born to Dance (1936), which featured the song "You'd Be So Easy to Love"; Rosalie (1937), which featured "In the Still of the Night"; High Society (1956), which included "True Love"; and Les Girls (1957). You can display the menu by pressing the right arrow at the top left. For more additional information about Cole Porter, you can use the Huawei search bar.</font></p></div>""",
+        """<div style="text-align: justify;"><p><font color=#FFFFFF>American composer and lyricist <strong>Cole Porter</strong> brought international momentum to American musical comedy, embodying the sophistication of his songs in his life.</font></p><p><font color=#FFFFFF>Born June 9, 1891 in Peru, Indiana, Porter is the grandson of a millionaire speculator, and the affluence in which he lived likely played a role in the poise and urbanity of his musical style. He began to study the violin at the age of six and the piano at eight; at ten he wrote an operetta in the style of Gilbert and Sullivan and saw his first composition, a waltz, published a year later. While studying at Yale, he composed approximately three hundred songs, including <i>Eli</i>, <i>Bulldog</i>, and <i>Bingo Eli Yale</i>, as well as performing for faculty; he continued his studies at Harvard Law School (1914) and at the Harvard Graduate School of Arts and Sciences in Music (1915-1916). He made his Broadway debut with the musical <i>See America First</i> (1916), which however left the bill after fifteen performances.</font></p><p><font color=#FFFFFF>In 1917, after the United States entered the war, Porter went to France (without joining the Allied troops, as will be said later). He became a traveling playboy in Europe and, although he was quite openly gay, married a wealthy divorced American older than him, Linda Lee Thomas, on December 18, 1919; they spent the next twenty years running social parties and taking group trips, sometimes together, sometimes separately.</p><p>In 1928, Porter composed several songs for a successful Broadway play, <i>Paris</i>. A string of successful musicals followed, including <i>Fifty Million Frenchmen</i> (1929), <i>Gay Divorcée</i> (1932), <i>Anything Goes</i> (1934), <i>Red, Hot and Blue</i> (1934), <i>Jubilee</i> (1935), <i>Dubarry Was a Lady</i> (1939) , <i>Panama Hattie</i> (1940), <i>Kiss me, Kate</i> (1948, based on Shakespeare's <i>The Taming of the Shrew</i>), <i>Can-Can</i> (1953) and <i>Silk Stockings</i> (1955). At the same time, he worked on the music for several films. Over the years he has written songs and lyrics as brilliant as <i>Night and Day</i>, <i>I Get a Kick out of you</i>, <i>Begin the Beguine</i>, </i>I've Got you Under my Skin</i>, <i>In The Still of The Night</i>, <i>Just One of Those Things</i>, <i>Love for Sale</i>, <i>My Heart Belongs to Daddy</i>, <i>Too Darn Hot</i>, <i>It's Delovely</i>, <i>I Concentrate on you</i>, <i>Always True to You in My Fashion</i>, and <i>I Love Paris</i>. He has the art of making songs that have entered the repertoire, such as <i>Let's Do It</i> and <i>You're the Top</i>, the best known. You can download my list of musics and store them in Huawei storage Cloud.</font></p>"</div>""",
         unsafe_allow_html=True)
+
+
+
 elif selected == "Singers prediction":
     prediction_form = st.form("prediction")
     set_background(prediction_form, bg2_path)
@@ -148,7 +127,7 @@ elif selected == "Singers prediction":
     model_path = r'../pickle/Cole-Porter-mfcc-neural-network-model-95p.h5'
     l_encoder_path = '../pickle/Cole-Porter-label-encoder.pkl'
     try:
-        file = prediction_form.file_uploader("",type=['mp3', 'ogg', 'flac', 'm4a'], accept_multiple_files=False)
+        file = prediction_form.file_uploader("",type=['mp3', 'ogg', 'flac', 'm4a'], accept_multiple_files=False, key="precition_file_uploader")
     except Exception as e:
         prediction_form.error("Invalid file format.")
     is_clk_pred = prediction_form.form_submit_button("Predict")
@@ -333,3 +312,400 @@ elif selected == 'Singers per song':
         st.error("Exception: "+ e + "Singer not found.")
     if not songs_found:
         st.error("Singer not found.")
+elif (selected == 'Storage Cloud'):
+    upload_form = st.form("upload_form")
+    file_uploaded = False
+    def doCopyPart(partETags, bucketName, objectKey, partNumber, uploadId, copySource, copySourceRange):
+        try:
+            if IS_WINDOWS:
+                global obsClient
+            else:
+                obsClient = ObsClient(access_key_id=AK, secret_access_key=SK, server=server)
+            resp = obsClient.copyPart(bucketName=bucketName, objectKey=objectKey, partNumber=partNumber, uploadId=uploadId,
+                                      copySource=copySource, copySourceRange=copySourceRange)
+        except Exception as e:
+            st.error("We can' generate a response.")
+        try:
+            if resp.status < 300:
+                partETags[partNumber] = resp.body.etag
+                upload_form.markdown(
+                    """<div style="text-align: left;font-size:16px"><font color=#FBFBFB>Part """ + str(partNumber) + """ done</font></div>""",
+                    unsafe_allow_html=True
+                    )
+            else:
+                upload_form.markdown(
+                    """<div style="text-align: left;font-size:16px"><font color=#FBFBFB>Part """ + str(
+                        partNumber) + """ failed</font></div>""",
+                    unsafe_allow_html=True
+                )
+        except Exception as e:
+            st.error("We can't divide song into parts.")
+    try:
+        ctx = get_script_run_ctx()
+        t = Thread(target=doCopyPart)
+        add_script_run_ctx(t)
+        t.start()
+        t.join()
+        set_background(upload_form, bg5_path)
+        storage_cloud_title=upload_form.markdown('## <font color=#FBFBFB>Storage Cloud</font>', unsafe_allow_html=True)
+        storage_cloud_chse_song=upload_form.markdown("""<div style="text-align: left;font-size:16px"><font color=#FBFBFB>Choose a song to upload:</font></div>""",
+                    unsafe_allow_html=True)
+        relative_path = ''
+    except Exception as e:
+        st.error("We can't generate thread.")
+    try:
+        file = upload_form.file_uploader("",type=['mp3', 'ogg', 'flac', 'm4a', 'oga'], accept_multiple_files=False, key='obs_storage_file_uploader')
+    except Exception as e:
+        upload_form.error("Invalid file format.")
+    is_clk_upload = upload_form.form_submit_button("Upload")
+    AK = '9WEQIWKRMG0LEICD6CFU'
+    SK = 'L1R1KYVgtSjGfuUR7vOH7bwYdW9WAKqgDznal3j4'
+    server = 'obs.ap-southeast-1.myhuaweicloud.com'
+    bucketName = 'cole-porter-app-storage'
+    if is_clk_upload:
+        for i in range(6):
+            if i== 0:
+                try:
+                    # sleep(0.5)
+                    relative_path = r'../Data/Test/' + file.name
+                    sourceBucketName = bucketName
+                    sourceObjectKey = file.name
+                    objectKey = sourceObjectKey + '-back'
+                    sampleFilePath = relative_path
+                    with open(relative_path, mode='wb') as f:
+                        f.write(file.getvalue())
+                    IS_WINDOWS = platform.system() == 'Windows' or os.name == 'nt'
+                    # Constructs a obs client instance with your account for accessing OBS
+                    obsClient = ObsClient(access_key_id=AK, secret_access_key=SK, server=server)
+                    upload_form.markdown("""<div style="text-align: left;font-size:16px"><font color=#FBFBFB>Uploading a song...</font></div>""",
+                                         unsafe_allow_html=True
+                                         )
+                    upload_form.markdown(
+                        """<div style="text-align: left;font-size:16px"><font color=#FBFBFB>Please, wait a couple minutes...</font></div><br>""",
+                        unsafe_allow_html=True
+                        )
+                    my_bar = upload_form.progress(0)
+                    resp = obsClient.putFile(sourceBucketName, sourceObjectKey, sampleFilePath)
+                    if resp.status >= 300:
+                        upload_form.error("We can't upload the song")
+
+                    # Claim a upload id firstly
+                    resp = obsClient.initiateMultipartUpload(bucketName, objectKey)
+                    if resp.status >= 300:
+                        upload_form.error("We can't upload the song")
+
+                    uploadId = resp.body.uploadId
+                    my_bar.progress(int(100 * (i + 1) / 6))
+                    continue
+                except Exception as e:
+                    st.error("We can't generate a response.")
+            elif i == 1:
+                try:
+                    upload_form.markdown("""<div style="text-align: left;font-size:16px"><font color=#FBFBFB>Claiming an upload id...</font></div>""",
+                                         unsafe_allow_html=True)
+                    # 5MB
+                    partSize = 5 * 1024 * 1024
+                    resp = obsClient.getObjectMetadata(sourceBucketName, sourceObjectKey)
+                    if resp.status >= 300:
+                        upload_form.error("We can't upload the song")
+
+                    header = dict(resp.header)
+                    objectSize = int(header.get('content-length'))
+
+                    partCount = int(objectSize / partSize) if (objectSize % partSize == 0) else int(objectSize / partSize) + 1
+
+                    if partCount > 10000:
+                        upload_form.error("We can't upload the song")
+                    my_bar.progress(int(100 * (i + 1) / 6))
+                    continue
+                except Exception as e:
+                    st.error("We can't get metadata.")
+            elif i == 2:
+                try:
+                    upload_form.markdown("""<div style="text-align: left;font-size:16px"><font color=#FBFBFB>Dividing the song into parts...</font></div><br>""",
+                                         unsafe_allow_html=True)
+                    # Upload multiparts by copy mode
+                    upload_form.markdown("""<div style="text-align: left;font-size:16px"><font color=#FBFBFB>Beginning to upload the parts to the Cloud Storage Service...</font></div>""",
+                                         unsafe_allow_html=True)
+                    proc = add_script_run_ctx(threading.Thread, ctx) if IS_WINDOWS else multiprocessing.Process
+
+                    partETags = dict() if IS_WINDOWS else multiprocessing.Manager().dict()
+                except:
+                    st.error("We can't generate the thread.")
+
+                processes = []
+
+                try:
+                    for i in range(partCount):
+                        rangeStart = i * partSize
+                        rangeEnd = objectSize - 1 if (i + 1 == partCount) else rangeStart + partSize - 1
+
+                        p = proc(target=doCopyPart, args=(
+                            partETags, bucketName, objectKey, i + 1, uploadId, sourceBucketName + '/' + sourceObjectKey,
+                            str(rangeStart) + '-' + str(rangeEnd)))
+                        # p.daemon = True
+                        processes.append(p)
+
+                    for p in processes:
+                        p.start()
+
+                    for p in processes:
+                        p.join()
+
+                    if len(partETags) != partCount:
+                        upload_form.error("We can't upload the song")
+                    my_bar.progress(int(100 * (i + 1) / 6))
+                    continue
+                except Exception as e:
+                    st.error("We can't generate the thread.")
+            elif i == 3:
+                try:
+                    # View all parts uploaded recently
+                    upload_form.markdown("""<div style="text-align: left;font-size:16px"><font color=#FBFBFB>Listing of the song's parts......</font></div>""",
+                                         unsafe_allow_html=True)
+                    resp = obsClient.listParts(bucketName, objectKey, uploadId)
+
+                    if resp.status < 300:
+                        cpt=0
+                        for part in resp.body.parts:
+                            cpt+=1
+                            if part != resp.body.parts[- 1]:
+                                upload_form.markdown("""<div style="text-align: left;font-size:16px"><font color=#FBFBFB>Part """ + str(part.partNumber) + "</font></div>",
+                                             unsafe_allow_html=True)
+                            else:
+                                upload_form.markdown(
+                                    """<div style="text-align: left;font-size:16px"><font color=#FBFBFB>Part """ + str(
+                                        part.partNumber) + "</font></div><br>",
+                                    unsafe_allow_html=True)
+                        print('\n')
+                    else:
+                        upload_form.error('listParts failed')
+
+                    # Complete to upload multiparts
+
+                    partETags = sorted(partETags.items(), key=lambda d: d[0])
+
+                    parts = []
+                    for key, value in partETags:
+                        parts.append(CompletePart(partNum=key, etag=value))
+                    my_bar.progress(int(100 * (i + 1) / 6))
+                    continue
+                except Exception as e:
+                    st.error("We can't list parts.")
+            elif i == 4:
+                try:
+                    upload_form.markdown("""<div style="text-align: left;font-size:16px"><font color=#FBFBFB>Completing to upload the song's parts...</font></div>""",
+                                         unsafe_allow_html=True)
+                    resp = obsClient.completeMultipartUpload(bucketName, objectKey, uploadId, CompleteMultipartUploadRequest(parts))
+                    my_bar.progress(int(100 * (i + 1) / 6))
+                    continue
+                except Exception as e:
+                    st.error("We can't complete multiparts.")
+            else:
+                try:
+                    if resp.status < 300:
+                        upload_form.markdown("""<div style="text-align: left;font-size:16px"><font color=#FBFBFB>Song uploaded !</font></div><br>""",
+                                         unsafe_allow_html=True)
+                    else:
+                        upload_form.error("We can't upload the song")
+                    os.remove(relative_path)
+                    progress_bar=my_bar.progress(int(100 * (i + 1) / 6))
+                except Exception as e:
+                    st.error("We can't upload the song.")
+
+else:
+    download_form = st.form("download_form")
+    set_background(download_form, bg5_path)
+    download_form.markdown('## <font color=#FBFBFB>Cloud Downloading</font>', unsafe_allow_html=True)
+    download_form.markdown(
+        """<div style="text-align: left;font-size:16px"><font color=#FBFBFB>If you've uploaded a song on the Cloud, please enter it's filename:</font></div>""",
+        unsafe_allow_html=True)
+    try:
+        filename = download_form.text_input('', placeholder ='It must end with .mp3, .ogg, .oga, .wav, .flac, .m4a')
+        if filename and (not (filename.endswith(".mp3") or filename.endswith(".ogg") or filename.endswith(".oga") or filename.endswith(".wav") or filename.endswith(".flac") or filename.endswith(".m4a"))):
+            st.error("Wrong file extension.")
+    except Exception as e:
+        st.error("We can't get the filename.")
+    #download_form = st.form("download_form")
+    download_on_cloud = download_form.form_submit_button("Load")
+    if download_on_cloud:
+        if filename:
+            st.markdown(
+                """<div style="text-align: left;font-size:16px"><font color=#FBFBFB>Please, wait while we're loading...</font></div><br>""",
+                unsafe_allow_html=True)
+            AK = '9WEQIWKRMG0LEICD6CFU'
+            SK = 'L1R1KYVgtSjGfuUR7vOH7bwYdW9WAKqgDznal3j4'
+            server = 'obs.ap-southeast-1.myhuaweicloud.com'
+            bucketName = 'cole-porter-app-storage'
+            try:
+                obsClient = ObsClient(access_key_id=AK, secret_access_key=SK, server=server)
+                bucketClient = obsClient.bucketClient(bucketName)
+                resp = bucketClient.getObject(filename, loadStreamInMemory=True)
+                if resp.status < 300:
+                    response = resp.body.buffer
+                    if response is not None:
+                        is_clk_download = st.download_button(
+                            "Download",
+                            key=None,
+                            data=response,
+                            file_name=filename,
+                            kwargs=None,
+                            disabled=False,
+                        )
+                    else:
+                        st.error("Wrong filename.")
+                else:
+                    st.error("The song isn't available in the Cloud.")
+            except Exception as e:
+                st.error("We can't download the song.")
+        else:
+            st.error('Wrong filename.')
+    # st.markdown(
+    #     """<div style="text-align: left;font-size:16px"><font color=#FBFBFB>You can download your song from the Cloud:</font></div><br>""",
+    #     unsafe_allow_html=True)
+    #
+    # cpt=0
+    # is_clk_download = st.download_button(
+    #     "Download",
+    #     key=None,
+    #     data=resp.body.buffer,
+    #     file_name=sourceObjectKey,
+    #     kwargs=None,
+    #     disabled=False,
+    # )
+    # if is_clk_download:
+    #     # sleep(5)
+    #     os.remove("../Data/Test/" + sourceObjectKey)
+    # else:
+    #     pass
+
+        # if (os.path.exists("../Data/Test/cpt.txt")):
+        #     with open("../Data/Test/cpt.txt", 'r') as file:
+        #         cpt = int(file.read().rstrip())
+        # if cpt>0:
+        #     rem_file = pathlib.Path("../Data/Test/" + sourceObjectKey)
+        #     rem_file.unlink()
+        #     #os.remove("../Data/Test/" + sourceObjectKey)
+        #     rem_file = pathlib.Path("../Data/Test/cpt.txt")
+        #     rem_file.unlink()
+        #     #os.remove("../Data/Test/cpt.txt")
+        # if is_clk_download:
+        #     sleep(5)
+        #     os.remove("../Data/Test/" + sourceObjectKey)
+        # else:
+        #     sleep(100)
+        #     os.remove("../Data/Test/" + sourceObjectKey)
+        #     st.markdown(
+        #         """<div style="text-align: left;font-size:16px"><font color=#FBFBFB>To save server memory, we have cleared the cache. Please reload the page.</font></div>""",
+        #         unsafe_allow_html=True)
+    # if is_clk_download:
+    #
+    #     def create_download_link(val, filename):
+    #         b64 = base64.b64encode(val)  # val looks like b'...'
+    #         return f'<a href="data:application/octet-stream;base64,{b64.decode()}" download="{filename}"></a>'
+    #
+    #
+    #     filename = r"../Data/Test/Dionne Warwick - Anything Goes [DW Sings Cole Porter] 1990.mp3"
+    #     filename = winapi_path(filename)
+    #     with open(filename, 'rb') as fd:
+    #         contents = fd.read()
+    #     html = create_download_link(contents, filename)
+    #     # download_form.markdown(html, unsafe_allow_html=True)
+    #     webbrowser.open_new_tab(html)
+    #     print('\tobject content:%s' % resp.body.buffer)
+                # def doGetObject(lock, completedBlocks, bucketName, objectKey, startPos, endPos, i):
+                #     if IS_WINDOWS:
+                #         global obsClient
+                #     else:
+                #         obsClient = ObsClient(access_key_id=AK, secret_access_key=SK, server=server)
+                #     resp = obsClient.getObject(bucketName, objectKey,
+                #                                headers=GetObjectHeader(range='%d-%d' % (startPos, endPos)))
+                #     if resp.status < 300:
+                #         response = resp.body.response
+                #         chunk_size = 65536
+                #         if response is not None:
+                #             with open(objectKey, 'rb+') as f:
+                #                 f.seek(startPos, 0)
+                #                 while True:
+                #                     chunk = response.read(chunk_size)
+                #                     if not chunk:
+                #                         break
+                #                     f.write(chunk)
+                #                 response.close()
+                #         print('Part#' + str(i + 1) + 'done\n')
+                #         with lock:
+                #             completedBlocks.value += 1
+                #     else:
+                #         print('\tPart#' + str(i + 1) + ' failed\n')
+                #
+                # # Get size of the object
+                # resp = obsClient.getObjectMetadata(bucketName, objectKey)
+                # if resp.status >= 300:
+                #     raise Exception('getObjectMetadata failed')
+                #
+                # header = dict(resp.header)
+                # objectSize = int(header.get('content-length'))
+                #
+                # print('Object size ' + str(objectSize) + '\n')
+                #
+                # # Calculate how many blocks to be divided
+                # # 5MB
+                # blockSize = 5 * 1024 * 1024
+                # blockCount = int(objectSize / blockSize)
+                # if objectSize % blockSize != 0:
+                #     blockCount += 1
+                #
+                # print('Total blocks count ' + str(blockCount) + '\n')
+                #
+                # # Download the object concurrently
+                # print('Start to download ' + objectKey + '\n')
+                #
+                # if os.path.exists(objectKey):
+                #     os.remove(objectKey)
+                #
+                # lock = threading.Lock() if IS_WINDOWS else multiprocessing.Lock()
+                # proc = add_script_run_ctx(threading.Thread, ctx) if IS_WINDOWS else multiprocessing.Process
+                #
+                #
+                # class Temp(object):
+                #     pass
+                #
+                #
+                # completedBlocks = Temp() if IS_WINDOWS else multiprocessing.Value('i', 0)
+                #
+                # if IS_WINDOWS:
+                #     completedBlocks.value = 0
+                #
+                # processes = []
+                #
+                # with open(objectKey, 'wb') as f:
+                #     pass
+                #
+                # for i in range(blockCount):
+                #     startPos = i * blockSize
+                #     endPos = objectSize - 1 if (i + 1) == blockCount else ((i + 1) * blockSize - 1)
+                #     p = proc(target=doGetObject,
+                #              args=(lock, completedBlocks, bucketName, objectKey, startPos, endPos, i))
+                #     p.daemon = True
+                #     processes.append(p)
+                #
+                # for p in processes:
+                #     p.start()
+                #
+                # for p in processes:
+                #     p.join()
+                #
+                # if completedBlocks.value != blockCount:
+                #     raise Exception('Download fails due to some blocks are not finished yet')
+                #
+                # print('Succeed to download object ' + objectKey + '\n')
+                #
+                # print('Deleting object ' + objectKey + '\n')
+                # resp = obsClient.deleteObject(bucketName, objectKey)
+                # if resp.status < 300:
+                #     print('Deleting object ' + objectKey + ' Succeed\n')
+                # else:
+                #     raise Exception('Deleting object failed')
+
+
+
