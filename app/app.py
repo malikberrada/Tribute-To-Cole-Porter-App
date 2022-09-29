@@ -13,17 +13,9 @@ import glob
 import multiprocessing
 import platform
 import threading
-from obs import ObsClient, CompletePart, CompleteMultipartUploadRequest, GetObjectHeader
-from time import sleep
-from stqdm import stqdm
+from obs import ObsClient, CompletePart, CompleteMultipartUploadRequest
 from streamlit.runtime.scriptrunner import add_script_run_ctx, get_script_run_ctx
 from threading import Thread
-import webbrowser
-import urllib.request
-import pathlib
-from persist import persist, load_widget_state
-
-# configuration
 
 try:
     im = Image.open("../pics/Jazz icon.jpg")
@@ -45,8 +37,6 @@ with st.sidebar:
            "nav-link-selected": {"background-color": "#616161"},
        }
     )
-
-# title and description
 
 def get_base64(bin_file):
     with open(bin_file, 'rb') as f:
@@ -88,6 +78,7 @@ bg2_path = r"../pics/Cole_porter_blur_bg_2.png"
 bg3_path = r"../pics/Cole_porter_blur_bg_3.png"
 bg4_path = r"../pics/Cole_porter_blur_bg_4.png"
 bg5_path = r"../pics/Cole_porter_blur_bg_3_5.png"
+bg6_path = r"../pics/Cole_porter_blur_bg_6.png"
 
 dict_singers_pics = {}
 
@@ -366,7 +357,6 @@ elif (selected == 'Storage Cloud'):
         for i in range(6):
             if i== 0:
                 try:
-                    # sleep(0.5)
                     relative_path = r'../Data/Test/' + file.name
                     sourceBucketName = bucketName
                     sourceObjectKey = file.name
@@ -443,7 +433,6 @@ elif (selected == 'Storage Cloud'):
                         p = proc(target=doCopyPart, args=(
                             partETags, bucketName, objectKey, i + 1, uploadId, sourceBucketName + '/' + sourceObjectKey,
                             str(rangeStart) + '-' + str(rangeEnd)))
-                        # p.daemon = True
                         processes.append(p)
 
                     for p in processes:
@@ -515,7 +504,7 @@ elif (selected == 'Storage Cloud'):
 
 else:
     download_form = st.form("download_form")
-    set_background(download_form, bg5_path)
+    set_background(download_form, bg6_path)
     download_form.markdown('## <font color=#FBFBFB>Cloud Downloading</font>', unsafe_allow_html=True)
     download_form.markdown(
         """<div style="text-align: left;font-size:16px"><font color=#FBFBFB>If you've uploaded a song on the Cloud, please enter it's filename:</font></div>""",
@@ -526,7 +515,6 @@ else:
             st.error("Wrong file extension.")
     except Exception as e:
         st.error("We can't get the filename.")
-    #download_form = st.form("download_form")
     download_on_cloud = download_form.form_submit_button("Load")
     if download_on_cloud:
         if filename:
@@ -560,152 +548,3 @@ else:
                 st.error("We can't download the song.")
         else:
             st.error('Wrong filename.')
-    # st.markdown(
-    #     """<div style="text-align: left;font-size:16px"><font color=#FBFBFB>You can download your song from the Cloud:</font></div><br>""",
-    #     unsafe_allow_html=True)
-    #
-    # cpt=0
-    # is_clk_download = st.download_button(
-    #     "Download",
-    #     key=None,
-    #     data=resp.body.buffer,
-    #     file_name=sourceObjectKey,
-    #     kwargs=None,
-    #     disabled=False,
-    # )
-    # if is_clk_download:
-    #     # sleep(5)
-    #     os.remove("../Data/Test/" + sourceObjectKey)
-    # else:
-    #     pass
-
-        # if (os.path.exists("../Data/Test/cpt.txt")):
-        #     with open("../Data/Test/cpt.txt", 'r') as file:
-        #         cpt = int(file.read().rstrip())
-        # if cpt>0:
-        #     rem_file = pathlib.Path("../Data/Test/" + sourceObjectKey)
-        #     rem_file.unlink()
-        #     #os.remove("../Data/Test/" + sourceObjectKey)
-        #     rem_file = pathlib.Path("../Data/Test/cpt.txt")
-        #     rem_file.unlink()
-        #     #os.remove("../Data/Test/cpt.txt")
-        # if is_clk_download:
-        #     sleep(5)
-        #     os.remove("../Data/Test/" + sourceObjectKey)
-        # else:
-        #     sleep(100)
-        #     os.remove("../Data/Test/" + sourceObjectKey)
-        #     st.markdown(
-        #         """<div style="text-align: left;font-size:16px"><font color=#FBFBFB>To save server memory, we have cleared the cache. Please reload the page.</font></div>""",
-        #         unsafe_allow_html=True)
-    # if is_clk_download:
-    #
-    #     def create_download_link(val, filename):
-    #         b64 = base64.b64encode(val)  # val looks like b'...'
-    #         return f'<a href="data:application/octet-stream;base64,{b64.decode()}" download="{filename}"></a>'
-    #
-    #
-    #     filename = r"../Data/Test/Dionne Warwick - Anything Goes [DW Sings Cole Porter] 1990.mp3"
-    #     filename = winapi_path(filename)
-    #     with open(filename, 'rb') as fd:
-    #         contents = fd.read()
-    #     html = create_download_link(contents, filename)
-    #     # download_form.markdown(html, unsafe_allow_html=True)
-    #     webbrowser.open_new_tab(html)
-    #     print('\tobject content:%s' % resp.body.buffer)
-                # def doGetObject(lock, completedBlocks, bucketName, objectKey, startPos, endPos, i):
-                #     if IS_WINDOWS:
-                #         global obsClient
-                #     else:
-                #         obsClient = ObsClient(access_key_id=AK, secret_access_key=SK, server=server)
-                #     resp = obsClient.getObject(bucketName, objectKey,
-                #                                headers=GetObjectHeader(range='%d-%d' % (startPos, endPos)))
-                #     if resp.status < 300:
-                #         response = resp.body.response
-                #         chunk_size = 65536
-                #         if response is not None:
-                #             with open(objectKey, 'rb+') as f:
-                #                 f.seek(startPos, 0)
-                #                 while True:
-                #                     chunk = response.read(chunk_size)
-                #                     if not chunk:
-                #                         break
-                #                     f.write(chunk)
-                #                 response.close()
-                #         print('Part#' + str(i + 1) + 'done\n')
-                #         with lock:
-                #             completedBlocks.value += 1
-                #     else:
-                #         print('\tPart#' + str(i + 1) + ' failed\n')
-                #
-                # # Get size of the object
-                # resp = obsClient.getObjectMetadata(bucketName, objectKey)
-                # if resp.status >= 300:
-                #     raise Exception('getObjectMetadata failed')
-                #
-                # header = dict(resp.header)
-                # objectSize = int(header.get('content-length'))
-                #
-                # print('Object size ' + str(objectSize) + '\n')
-                #
-                # # Calculate how many blocks to be divided
-                # # 5MB
-                # blockSize = 5 * 1024 * 1024
-                # blockCount = int(objectSize / blockSize)
-                # if objectSize % blockSize != 0:
-                #     blockCount += 1
-                #
-                # print('Total blocks count ' + str(blockCount) + '\n')
-                #
-                # # Download the object concurrently
-                # print('Start to download ' + objectKey + '\n')
-                #
-                # if os.path.exists(objectKey):
-                #     os.remove(objectKey)
-                #
-                # lock = threading.Lock() if IS_WINDOWS else multiprocessing.Lock()
-                # proc = add_script_run_ctx(threading.Thread, ctx) if IS_WINDOWS else multiprocessing.Process
-                #
-                #
-                # class Temp(object):
-                #     pass
-                #
-                #
-                # completedBlocks = Temp() if IS_WINDOWS else multiprocessing.Value('i', 0)
-                #
-                # if IS_WINDOWS:
-                #     completedBlocks.value = 0
-                #
-                # processes = []
-                #
-                # with open(objectKey, 'wb') as f:
-                #     pass
-                #
-                # for i in range(blockCount):
-                #     startPos = i * blockSize
-                #     endPos = objectSize - 1 if (i + 1) == blockCount else ((i + 1) * blockSize - 1)
-                #     p = proc(target=doGetObject,
-                #              args=(lock, completedBlocks, bucketName, objectKey, startPos, endPos, i))
-                #     p.daemon = True
-                #     processes.append(p)
-                #
-                # for p in processes:
-                #     p.start()
-                #
-                # for p in processes:
-                #     p.join()
-                #
-                # if completedBlocks.value != blockCount:
-                #     raise Exception('Download fails due to some blocks are not finished yet')
-                #
-                # print('Succeed to download object ' + objectKey + '\n')
-                #
-                # print('Deleting object ' + objectKey + '\n')
-                # resp = obsClient.deleteObject(bucketName, objectKey)
-                # if resp.status < 300:
-                #     print('Deleting object ' + objectKey + ' Succeed\n')
-                # else:
-                #     raise Exception('Deleting object failed')
-
-
-
