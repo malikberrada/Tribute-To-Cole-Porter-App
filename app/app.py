@@ -14,7 +14,7 @@ import multiprocessing
 import platform
 import threading
 from obs import ObsClient, CompletePart, CompleteMultipartUploadRequest
-from streamlit.script_run_context import add_script_run_ctx, get_script_run_ctx
+from streamlit.scriptrunner import add_script_run_ctx, get_script_run_ctx
 from threading import Thread
 
 try:
