@@ -191,18 +191,18 @@ elif selected == "Singers prediction":
 elif selected == 'Songs per Singer':
     dict_singers_pics_2 = {}
     dict_singers_pics_2['Cole Porter'] = "pics/singers_pics_s_singer/Coleporter_3.jpg"
-    dict_singers_pics_2['Dionne Warwick'] = "pics/singers_pics_s_singer/Dionne_Warwick_2021.jpg"
-    dict_singers_pics_2['Ella Fitzgerald'] = "pics/singers_pics_s_singer/Ella Fitzgerald.jpg"
-    dict_singers_pics_2['Ethel Merman'] = "pics/singers_pics_s_singer/Ethel_merman_1967.jpg"
-    dict_singers_pics_2['Frank Sinatra'] = "pics/singers_pics_s_singer/Frank Sinatra.jpg"
-    dict_singers_pics_2['Harry Connick'] = "pics/singers_pics_s_singer/Harry_Connick.jpg"
-    dict_singers_pics_2['Patti Lupone'] = "pics/singers_pics_s_singer/Patti-LuPone.jpg"
-    dict_singers_pics_2['Sutton Foster'] = "pics/singers_pics_s_singer/Sutton-Foster.jpg"
-    dict_singers_pics_2['Nat King Cole'] = "pics/singers_pics_s_singer/Nat King Cole.jpg"
-    dict_singers_pics_2['Sarah Vaughan'] = "pics/singers_pics_s_singer/Sarah Vaughan 2.jpg"
-    dict_singers_pics_2['Ray Charles'] = "pics/singers_pics_s_singer/Ray_Charles.jpg"
-    dict_singers_pics_2['Louis Armstrong'] = "pics/singers_pics_s_singer/Louis_Armstrong.jpg"
-    dict_singers_pics_2['Sutton Foster -  Tap dances'] = "pics/singers_pics_s_singer/Sutton-Foster.jpg"
+    dict_singers_pics_2['Dionne Warwick'] = "pics/singers_pics_s_singer/Dionne_Warwick_2021_3.jpg"
+    dict_singers_pics_2['Ella Fitzgerald'] = "pics/singers_pics_s_singer/Ella Fitzgerald_3.jpg"
+    dict_singers_pics_2['Ethel Merman'] = "pics/singers_pics_s_singer/Ethel_merman_1967_3.jpg"
+    dict_singers_pics_2['Frank Sinatra'] = "pics/singers_pics_s_singer/Frank Sinatra_3.jpg"
+    dict_singers_pics_2['Harry Connick'] = "pics/singers_pics_s_singer/Harry_Connick_3.jpg"
+    dict_singers_pics_2['Patti Lupone'] = "pics/singers_pics_s_singer/Patti-LuPone_3.jpg"
+    dict_singers_pics_2['Sutton Foster'] = "pics/singers_pics_s_singer/Sutton-Foster_3.jpg"
+    dict_singers_pics_2['Nat King Cole'] = "pics/singers_pics_s_singer/Nat King Cole_3.jpg"
+    dict_singers_pics_2['Sarah Vaughan'] = "pics/singers_pics_s_singer/Sarah Vaughan 2_3.jpg"
+    dict_singers_pics_2['Ray Charles'] = "pics/singers_pics_s_singer/Ray_Charles_3.jpg"
+    dict_singers_pics_2['Louis Armstrong'] = "pics/singers_pics_s_singer/Louis_Armstrong_3.jpg"
+    dict_singers_pics_2['Sutton Foster -  Tap dances'] = "pics/singers_pics_s_singer/Sutton-Foster_3.jpg"
     set_background(st, bg3_path)
     st.markdown('## <font color=#FFFFFF>Songs per Singer</font>', unsafe_allow_html=True)
     st.markdown("""<div style="text-align: left;font-size:16px"><font color=#FFFFFF>Choose the singer:</font></div>""", unsafe_allow_html=True)
