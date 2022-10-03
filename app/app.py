@@ -225,18 +225,15 @@ elif selected == 'Songs per Singer':
     except Exception as e:
         st.error("Can't open the singer image.")
 
-    col1, col2, col3, col4 = st.columns(4)
+    col1, col2, col3 = st.columns(3)
 
     with col1:
         st.write(' ')
 
     with col2:
-        st.write(' ')
-
-    with col3:
         st.image(image, caption='')
 
-    with col4:
+    with col3:
         st.write(' ')
 
     songs_found = False
