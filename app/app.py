@@ -73,10 +73,10 @@ def features_extractor(file):
     except Exception as e:
         st.error("Can't extract features.")
 
-bg1_path = r"pics/Cole_porter_blur_bg_1_2.png"
-bg2_path = r"pics/Cole_porter_blur_bg_2_2.png"
-bg3_path = r"pics/Cole_porter_blur_bg_3_2.png"
-bg4_path = r"pics/Cole_porter_blur_bg_4_2.png"
+bg1_path = r"pics/Cole_porter_blur_bg_1_3.png"
+bg2_path = r"pics/Cole_porter_blur_bg_2_3.png"
+bg3_path = r"pics/Cole_porter_blur_bg_3_3.png"
+bg4_path = r"pics/Cole_porter_blur_bg_4_3.png"
 bg5_path = r"pics/Cole_porter_blur_bg_3_5_2.png"
 bg6_path = r"pics/Cole_porter_blur_bg_6_2.png"
 
@@ -182,8 +182,8 @@ elif selected == "Singers prediction":
             prediction_form.error("Can't predict the Data.")
 elif selected == 'Songs per Singer':
     set_background(st, bg3_path)
-    st.markdown('## <font color=#ECECEC>Songs per Singer</font>', unsafe_allow_html=True)
-    st.markdown("""<div style="text-align: left;font-size:16px"><font color=#ECECEC>Choose the singer:</font></div>""", unsafe_allow_html=True)
+    st.markdown('## <font color=#FFFFFF>Songs per Singer</font>', unsafe_allow_html=True)
+    st.markdown("""<div style="text-align: left;font-size:16px"><font color=#FFFFFF>Choose the singer:</font></div>""", unsafe_allow_html=True)
     singer = st.selectbox('', ('Cole Porter',
          'Dionne Warwick',
          'Ella Fitzgerald',
@@ -210,7 +210,7 @@ elif selected == 'Songs per Singer':
                         audio_name = song_sp.replace("\\", "/")
                         orig_audio_name = audio_name
                         st.markdown(
-                            """<div style="text-align: left;font-size:16px"><font color=#ECECEC>""" + orig_audio_name.split("/")[-1].replace(".ogg", "") + """</font></div><br>""",
+                            """<div style="text-align: left;font-size:16px"><font color=#FFFFFF>""" + orig_audio_name.split("/")[-1].replace(".ogg", "") + """</font></div><br>""",
                             unsafe_allow_html=True)
                         try:
                             audio_file = open(orig_audio_name, 'rb')
@@ -229,8 +229,8 @@ elif selected == 'Songs per Singer':
         st.error("Songs not found.")
 elif selected == 'Singers per song':
     set_background(st, bg4_path)
-    st.markdown('## <font color=#FBFBFB>Singers per song</font>', unsafe_allow_html=True)
-    st.markdown("""<div style="text-align: left;font-size:16px"><font color=#FBFBFB>Choose the song:</font></div>""", unsafe_allow_html=True)
+    st.markdown('## <font color=#FFFFFF>Singers per song</font>', unsafe_allow_html=True)
+    st.markdown("""<div style="text-align: left;font-size:16px"><font color=#FFFFFF>Choose the song:</font></div>""", unsafe_allow_html=True)
     dict_songs = {}
     dict_songs['Anything goes'] = 'Anything goes'
     dict_songs['Begin the Beguine'] = 'Begin the Beguine'
@@ -287,7 +287,7 @@ elif selected == 'Singers per song':
                         audio_name = song_sp.replace("\\", "/")
                         orig_audio_name = audio_name
                         st.markdown(
-                            """<div style="text-align: left;font-size:16px"><font color=#FBFBFB>""" + orig_audio_name.split("/")[-2] + """</font></div><br>""",
+                            """<div style="text-align: left;font-size:16px"><font color=#FFFFFF>""" + orig_audio_name.split("/")[-2] + """</font></div><br>""",
                             unsafe_allow_html=True)
                         try:
                             audio_file = open(orig_audio_name, 'rb')
