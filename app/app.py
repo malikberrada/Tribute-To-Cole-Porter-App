@@ -28,13 +28,21 @@ st.set_page_config(
                     initial_sidebar_state="expanded",
                   )
 
+side_bg_ext = "png"
+side_bg = "../pics/Happy-Cole-Porter-3.png"
+
 with st.sidebar:
     selected = option_menu("Main Menu", ["Home", 'Singers prediction', 'Songs per Singer', 'Singers per song', 'Storage Cloud', 'Cloud Downloading'\
                                        ],
         icons=['house', 'bi bi-robot', 'bi bi-music-note-list', 'bi bi-music-note', 'bi bi-cloud-upload', 'bi bi-cloud-download'], menu_icon="cast", default_index=0, \
  \
        styles={
-           "nav-link-selected": {"background-color": "#616161"},
+           "container": {"background-image": f"""url(data:image/{side_bg_ext};base64,{base64.b64encode(open(side_bg, "rb").read()).decode()});background-repeat:no-repeat"""
+    },
+           "icon": {"color": "#FFFFFF"},
+           "nav-link-selected": {"background-color": "#616161", "opacity": 0.66},
+           "nav-link": {"color": "#FFFFFF"},
+           "menu-title": {"color":"#FFFFFF"}
        }
     )
 
