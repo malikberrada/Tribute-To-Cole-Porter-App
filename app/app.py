@@ -102,7 +102,7 @@ dict_singers_pics['Nat King Cole'] = "pics/singers_pics/Nat King Cole.jpg"
 dict_singers_pics['Sarah Vaughan'] = "pics/singers_pics/Sarah Vaughan 2.jpg"
 dict_singers_pics['Ray Charles'] = "pics/singers_pics/Ray_Charles.jpg"
 dict_singers_pics['Louis Armstrong'] = "pics/singers_pics/Louis_Armstrong.jpg"
-dict_singers_pics['Sutton Foster -  Tap dances'] = "pics/singers_pics/Sutton-Foster - tap dances-2.gif"
+dict_singers_pics['Sutton Foster -  Tap dances'] = "pics/singers_pics/Sutton-Foster - tap dances-3.gif"
 
 if selected == "Home":
     st.markdown('# <font color=#FFFFFF>Tribute to Cole Porter</font>', unsafe_allow_html=True)
