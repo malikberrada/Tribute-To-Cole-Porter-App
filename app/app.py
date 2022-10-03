@@ -224,7 +224,17 @@ elif selected == 'Songs per Singer':
         image = Image.open(dict_singers_pics_2[singer])
     except Exception as e:
         st.error("Can't open the singer image.")
-    st.image(image, caption='')
+
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        st.write(' ')
+
+    with col2:
+        st.image(image, caption='')
+
+    with col3:
+        st.write(' ')
 
     songs_found = False
     # assign directory
