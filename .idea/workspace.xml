@@ -26,12 +26,6 @@
     "last_opened_file_path": "E:/Travail_Freelance/Songs-project-App-Gitlab"
   }
 }]]></component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\Travail_Freelance\Songs-project-App-Gitlab\pics" />
-      <recent name="E:\Travail_Freelance\Songs-project-App-Gitlab\pics\singers_pics" />
-    </key>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -40,8 +34,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1664488251074</updated>
+<<<<<<< HEAD
       <workItem from="1664488252834" duration="9118000" />
       <workItem from="1664799722267" duration="54000" />
+=======
+      <workItem from="1664488252834" duration="7351000" />
+>>>>>>> parent of fa7e0ad (Commit with music.jpg)
     </task>
     <servers />
   </component>
