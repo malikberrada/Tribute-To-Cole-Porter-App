@@ -29,7 +29,7 @@ st.set_page_config(
                   )
 
 side_bg_ext = "png"
-side_bg = "../pics/Happy-Cole-Porter-3.png"
+side_bg = "pics/Happy-Cole-Porter-3.png"
 
 with st.sidebar:
     selected = option_menu("Main Menu", ["Home", 'Singers prediction', 'Songs per Singer', 'Singers per song', 'Storage Cloud', 'Cloud Downloading'\
