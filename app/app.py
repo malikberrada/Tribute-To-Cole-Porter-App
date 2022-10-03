@@ -109,7 +109,7 @@ if selected == "Home":
     set_background(st, bg1_path)
     st.markdown('## <font color=#FFFFFF>About</font>', unsafe_allow_html=True)
     st.markdown(
-        """<div style="text-align: justify;"><p><font color=#FFFFFF>This app was developed as a tribute to Cole Porter. Porter is one of the wittiest lyricists in the world, with a subtle expression and a great mastery of inner rhythm. We have developed this application to introduce the rhythms of popular songs to today's youth and awaken hidden talents around the world. Porter's work remains a model of elegance and refinement in the popular song genre. This app predicts the singers of the songs sung by Cole Porter and other famous Jazz singers. It can predict singers such as Louis Armstrong, Nat king Cole, Ray Charles, Frank Sinatra, Sarah Vaughan, Ethel Merman and Ella Fitzgerald.</font></p></div>""",
+        """<div style="text-align: justify;"><p><font color=#FFFFFF>This app was developed as a tribute to Cole Porter. Porter is one of the wittiest lyricists in the world, with a subtle expression and a great mastery of inner rhythm. We have developed this application to introduce the rhythms of popular songs to today's youth and awaken hidden talents around the world. Porter's work remains a model of elegance and refinement in the popular song genre. This app predicts the singers of the songs sung by Cole Porter and other famous Jazz singers. It can predict singers such as Louis Armstrong, Nat king Cole, Ray Charles, Frank Sinatra, Sarah Vaughan, Ethel Merman and Ella Fitzgerald with an accuracy of 85.2%. It can also predict the most likely song with 78.6% accuracy.</font></p></div>""",
         unsafe_allow_html=True)
     st.markdown("## <font color=#FFFFFF>Who's Cole Porter</font>", unsafe_allow_html=True)
     st.markdown(
@@ -189,6 +189,20 @@ elif selected == "Singers prediction":
         except Exception as e:
             prediction_form.error("Can't predict the Data.")
 elif selected == 'Songs per Singer':
+    dict_singers_pics_2 = {}
+    dict_singers_pics_2['Cole Porter'] = "../pics/singers_pics_s_singer/Coleporter_2.jpg"
+    dict_singers_pics_2['Dionne Warwick'] = "../pics/singers_pics_s_singer/Dionne_Warwick_2021.jpg"
+    dict_singers_pics_2['Ella Fitzgerald'] = "../pics/singers_pics_s_singer/Ella Fitzgerald.jpg"
+    dict_singers_pics_2['Ethel Merman'] = "../pics/singers_pics_s_singer/Ethel_merman_1967.jpg"
+    dict_singers_pics_2['Frank Sinatra'] = "../pics/singers_pics_s_singer/Frank Sinatra.jpg"
+    dict_singers_pics_2['Harry Connick'] = "../pics/singers_pics_s_singer/Harry_Connick.jpg"
+    dict_singers_pics_2['Patti Lupone'] = "../pics/singers_pics_s_singer/Patti-LuPone.jpg"
+    dict_singers_pics_2['Sutton Foster'] = "../pics/singers_pics_s_singer/Sutton-Foster.jpg"
+    dict_singers_pics_2['Nat King Cole'] = "../pics/singers_pics_s_singer/Nat King Cole.jpg"
+    dict_singers_pics_2['Sarah Vaughan'] = "../pics/singers_pics_s_singer/Sarah Vaughan 2.jpg"
+    dict_singers_pics_2['Ray Charles'] = "../pics/singers_pics_s_singer/Ray_Charles.jpg"
+    dict_singers_pics_2['Louis Armstrong'] = "../pics/singers_pics_s_singer/Louis_Armstrong.jpg"
+    dict_singers_pics_2['Sutton Foster -  Tap dances'] = "../pics/singers_pics_s_singer/Sutton-Foster.jpg"
     set_background(st, bg3_path)
     st.markdown('## <font color=#FFFFFF>Songs per Singer</font>', unsafe_allow_html=True)
     st.markdown("""<div style="text-align: left;font-size:16px"><font color=#FFFFFF>Choose the singer:</font></div>""", unsafe_allow_html=True)
@@ -205,6 +219,13 @@ elif selected == 'Songs per Singer':
          'Sarah Vaughan',
          'Ray Charles',
          'Louis Armstrong'))
+
+    try:
+        image = Image.open(dict_singers_pics_2[singer])
+    except Exception as e:
+        st.error("Can't open the singer image.")
+    st.image(image, caption='')
+
     songs_found = False
     # assign directory
     directory = 'Data/songs - ogg - Orig'
