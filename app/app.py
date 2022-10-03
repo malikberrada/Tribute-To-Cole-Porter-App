@@ -14,11 +14,11 @@ import multiprocessing
 import platform
 import threading
 from obs import ObsClient, CompletePart, CompleteMultipartUploadRequest
-from streamlit.runtime.scriptrunner import add_script_run_ctx, get_script_run_ctx
+from streamlit.scriptrunner import add_script_run_ctx, get_script_run_ctx
 from threading import Thread
 
 try:
-    im = Image.open("../pics/music.jpg")
+    im = Image.open("pics/music.jpg")
 except Exception as e:
     st.error("Can't open App icon.")
 st.set_page_config(
@@ -73,28 +73,28 @@ def features_extractor(file):
     except Exception as e:
         st.error("Can't extract features.")
 
-bg1_path = r"../pics/Cole_porter_blur_bg_1_2.png"
-bg2_path = r"../pics/Cole_porter_blur_bg_2_2.png"
-bg3_path = r"../pics/Cole_porter_blur_bg_3_2.png"
-bg4_path = r"../pics/Cole_porter_blur_bg_4_2.png"
-bg5_path = r"../pics/Cole_porter_blur_bg_3_5_2.png"
-bg6_path = r"../pics/Cole_porter_blur_bg_6_2.png"
+bg1_path = r"pics/Cole_porter_blur_bg_1_2.png"
+bg2_path = r"pics/Cole_porter_blur_bg_2_2.png"
+bg3_path = r"pics/Cole_porter_blur_bg_3_2.png"
+bg4_path = r"pics/Cole_porter_blur_bg_4_2.png"
+bg5_path = r"pics/Cole_porter_blur_bg_3_5_2.png"
+bg6_path = r"pics/Cole_porter_blur_bg_6_2.png"
 
 dict_singers_pics = {}
 
-dict_singers_pics['Cole Porter'] = "../pics/singers_pics/Coleporter.jpg"
-dict_singers_pics['Dionne Warwick'] = "../pics/singers_pics/Dionne_Warwick_2021.jpg"
-dict_singers_pics['Ella Fitzgerald'] = "../pics/singers_pics/Ella Fitzgerald.jpg"
-dict_singers_pics['Ethel Merman'] = "../pics/singers_pics/Ethel_merman_1967.jpg"
-dict_singers_pics['Frank Sinatra'] = "../pics/singers_pics/Frank Sinatra.jpg"
-dict_singers_pics['Harry Connick'] = "../pics/singers_pics/Harry_Connick.jpg"
-dict_singers_pics['Patti Lupone'] = "../pics/singers_pics/Patti-LuPone.jpg"
-dict_singers_pics['Sutton Foster'] = "../pics/singers_pics/Sutton-Foster.jpg"
-dict_singers_pics['Nat King Cole'] = "../pics/singers_pics/Nat King Cole.jpg"
-dict_singers_pics['Sarah Vaughan'] = "../pics/singers_pics/Sarah Vaughan 2.jpg"
-dict_singers_pics['Ray Charles'] = "../pics/singers_pics/Ray_Charles.jpg"
-dict_singers_pics['Louis Armstrong'] = "../pics/singers_pics/Louis_Armstrong.jpg"
-dict_singers_pics['Sutton Foster -  Tap dances'] = "../pics/singers_pics/Sutton-Foster - tap dances.gif"
+dict_singers_pics['Cole Porter'] = "pics/singers_pics/Coleporter.jpg"
+dict_singers_pics['Dionne Warwick'] = "pics/singers_pics/Dionne_Warwick_2021.jpg"
+dict_singers_pics['Ella Fitzgerald'] = "pics/singers_pics/Ella Fitzgerald.jpg"
+dict_singers_pics['Ethel Merman'] = "pics/singers_pics/Ethel_merman_1967.jpg"
+dict_singers_pics['Frank Sinatra'] = "pics/singers_pics/Frank Sinatra.jpg"
+dict_singers_pics['Harry Connick'] = "pics/singers_pics/Harry_Connick.jpg"
+dict_singers_pics['Patti Lupone'] = "pics/singers_pics/Patti-LuPone.jpg"
+dict_singers_pics['Sutton Foster'] = "pics/singers_pics/Sutton-Foster.jpg"
+dict_singers_pics['Nat King Cole'] = "pics/singers_pics/Nat King Cole.jpg"
+dict_singers_pics['Sarah Vaughan'] = "pics/singers_pics/Sarah Vaughan 2.jpg"
+dict_singers_pics['Ray Charles'] = "pics/singers_pics/Ray_Charles.jpg"
+dict_singers_pics['Louis Armstrong'] = "pics/singers_pics/Louis_Armstrong.jpg"
+dict_singers_pics['Sutton Foster -  Tap dances'] = "pics/singers_pics/Sutton-Foster - tap dances.gif"
 
 if selected == "Home":
     st.markdown('# <font color=#FFFFFF>Tribute to Cole Porter</font>', unsafe_allow_html=True)
@@ -115,8 +115,8 @@ elif selected == "Singers prediction":
     set_background(prediction_form, bg2_path)
     prediction_form.markdown('## <font color=#FFFFFF>Singers prediction</font>', unsafe_allow_html=True)
     prediction_form.markdown("""<div style="text-align: left;font-size:16px"><font color=#FFFFFF>Enter a Cole Porter song:</font></div>""", unsafe_allow_html=True)
-    model_path = r'../pickle/Cole-Porter-mfcc-neural-network-model-95p.h5'
-    l_encoder_path = '../pickle/Cole-Porter-label-encoder.pkl'
+    model_path = r'pickle/Cole-Porter-mfcc-neural-network-model-95p.h5'
+    l_encoder_path = 'pickle/Cole-Porter-label-encoder.pkl'
     try:
         file = prediction_form.file_uploader("",type=['mp3', 'ogg', 'flac', 'm4a'], accept_multiple_files=False, key="precition_file_uploader")
     except Exception as e:
@@ -125,7 +125,7 @@ elif selected == "Singers prediction":
     if is_clk_pred:
         extracted_features_pred = []
         try:
-            relative_path = r'../Data/Test/' + file.name
+            relative_path = r'Data/Test/' + file.name
             with open(relative_path, mode='wb') as f:
                 f.write(file.getvalue())
             data = features_extractor(relative_path)
@@ -199,7 +199,7 @@ elif selected == 'Songs per Singer':
          'Louis Armstrong'))
     songs_found = False
     # assign directory
-    directory = '../Data/songs - ogg - Orig'
+    directory = 'Data/songs - ogg - Orig'
     try:
         for song in glob.iglob(f'{directory}/*'):
             for sgr in glob.iglob(f'{song}/*'):
@@ -275,7 +275,7 @@ elif selected == 'Singers per song':
                              dict_songs['You re the top']))
     songs_found = False
     # assign directory
-    directory = '../Data/songs - ogg - Orig'
+    directory = 'Data/songs - ogg - Orig'
     try:
         for song in glob.iglob(f'{directory}/*'):
             song = song.replace("\\", "/")
@@ -357,7 +357,7 @@ elif (selected == 'Storage Cloud'):
         for i in range(6):
             if i== 0:
                 try:
-                    relative_path = r'../Data/Test/' + file.name
+                    relative_path = r'Data/Test/' + file.name
                     sourceBucketName = bucketName
                     sourceObjectKey = file.name
                     objectKey = sourceObjectKey + '-back'
