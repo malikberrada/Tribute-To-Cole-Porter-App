@@ -190,7 +190,7 @@ elif selected == "Singers prediction":
             prediction_form.error("Can't predict the Data.")
 elif selected == 'Songs per Singer':
     dict_singers_pics_2 = {}
-    dict_singers_pics_2['Cole Porter'] = "pics/singers_pics_s_singer/Coleporter_2.jpg"
+    dict_singers_pics_2['Cole Porter'] = "pics/singers_pics_s_singer/Coleporter_3.jpg"
     dict_singers_pics_2['Dionne Warwick'] = "pics/singers_pics_s_singer/Dionne_Warwick_2021.jpg"
     dict_singers_pics_2['Ella Fitzgerald'] = "pics/singers_pics_s_singer/Ella Fitzgerald.jpg"
     dict_singers_pics_2['Ethel Merman'] = "pics/singers_pics_s_singer/Ethel_merman_1967.jpg"
