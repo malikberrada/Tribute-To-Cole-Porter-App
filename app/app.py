@@ -82,9 +82,9 @@ def features_extractor(file):
         st.error("Can't extract features.")
 
 bg1_path = r"pics/Cole_porter_blur_bg_1_3.png"
-bg2_path = r"pics/Cole_porter_blur_bg_2_4.png"
+bg2_path = r"pics/Cole_porter_blur_bg_2_5.png"
 bg3_path = r"pics/Cole_porter_blur_bg_3_3.png"
-bg4_path = r"pics/Cole_porter_blur_bg_4_4.png"
+bg4_path = r"pics/Cole_porter_blur_bg_4_5.png"
 bg5_path = r"pics/Cole_porter_blur_bg_3_5_2.png"
 bg6_path = r"pics/Cole_porter_blur_bg_6_2.png"
 
