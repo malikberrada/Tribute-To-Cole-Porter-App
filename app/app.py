@@ -202,7 +202,7 @@ elif selected == "Singers prediction":
                                     audio_name = song_sp.replace("\\", "/")
                                     orig_audio_name = audio_name
                                     st.markdown(
-                                        """<div style="text-align: left;font-size:16px"><font color=#FFFFFF>You can stop the song by switching to another page of the app.</font></div><br>""",
+                                        """<div style="text-align: left;font-size:16px"><font color=#FFFFFF>You can stop the song by switching tabs.</font></div><br>""",
                                         unsafe_allow_html=True)
                                     try:
                                         audio_file = open(orig_audio_name, 'rb')
