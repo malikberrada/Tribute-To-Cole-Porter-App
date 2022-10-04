@@ -109,7 +109,7 @@ if selected == "Home":
     set_background(st, bg1_path)
     st.markdown('## <font color=#FFFFFF>About</font>', unsafe_allow_html=True)
     st.markdown(
-        """<div style="text-align: justify;"><p><font color=#FFFFFF>This app was developed as a tribute to Cole Porter. Porter is one of the wittiest lyricists in the world, with a subtle expression and a great mastery of inner rhythm. We have developed this application to introduce the rhythms of popular songs to today's youth and awaken hidden talents around the world. Porter's work remains a model of elegance and refinement in the popular song genre. This app predicts the singers of the songs sung by Cole Porter and other famous Jazz singers. It can predict singers such as Louis Armstrong, Nat king Cole, Ray Charles, Frank Sinatra, Sarah Vaughan, Ethel Merman and Ella Fitzgerald with an accuracy of 85.2%. It can also predict the most likely song with 78.6% accuracy.</font></p></div>""",
+        """<div style="text-align: justify;"><p><font color=#FFFFFF>This app was developed as a tribute to Cole Porter. Porter is one of the wittiest lyricists in the world, with a subtle expression and a great mastery of inner rhythm. We have developed this application to introduce the rhythms of popular songs to today's youth and awaken hidden talents around the world. Porter's work remains a model of elegance and refinement in the popular song genre. This app predicts the singers of the songs sung by Cole Porter and other famous Jazz singers. If you have Cole Porter songs whose singer you don't know and which can be sung by the following singers: Louis Armstrong, Nat king Cole, Ray Charles, Frank Sinatra, Sarah Vaughan, Ethel Merman and Ella Fitzgerald, you can predict the real singer through this application. It can do this with an accuracy of 85.2%. It can also predict the most likely song with 78.6% accuracy.</font></p></div>""",
         unsafe_allow_html=True)
     st.markdown("## <font color=#FFFFFF>Who's Cole Porter</font>", unsafe_allow_html=True)
     st.markdown(
@@ -202,8 +202,7 @@ elif selected == "Singers prediction":
                                     audio_name = song_sp.replace("\\", "/")
                                     orig_audio_name = audio_name
                                     st.markdown(
-                                        """<div style="text-align: left;font-size:16px"><font color=#FFFFFF>""" +
-                                        orig_audio_name.split("/")[-1].replace(".ogg", "") + """</font></div><br>""",
+                                        """<div style="text-align: left;font-size:16px"><font color=#FFFFFF>You can stop the song by switching to another page of the app.</font></div><br>""",
                                         unsafe_allow_html=True)
                                     try:
                                         audio_file = open(orig_audio_name, 'rb')
