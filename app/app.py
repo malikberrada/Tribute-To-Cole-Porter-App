@@ -159,7 +159,10 @@ elif selected == "Singers prediction":
             pred_extracted_features_df['Predicted_Class'] = le.inverse_transform(pred_extracted_features_df['Predicted_Class'])
             pred_extracted_features_df["predicted_Singer"] = pred_extracted_features_df["Predicted_Class"].apply(
                 lambda x: ' - '.join(x.split(" - ")[1:]))
+            pred_extracted_features_df["predicted_Song"] = pred_extracted_features_df["Predicted_Class"].apply(
+                lambda x: x.split(" - ")[0])
             singer = pred_extracted_features_df["predicted_Singer"].values[-1]
+            pred_song = pred_extracted_features_df["predicted_Song"].values[-1]
             prediction_form.markdown(
                 """<div style="text-align: left;font-size:17px"><font color=#FFFFFF>Its singer is </font><font color=#204E1E>""" + singer.split(" - ")[0] + """</font></div>""",
                 unsafe_allow_html=True)
@@ -186,6 +189,44 @@ elif selected == "Singers prediction":
                 prediction_form.markdown(
                     """<div style="text-align: left;font-size:17px"><font color=#FFFFFF>Its a </font><font color=#204E1E>Tap dances</font><font color=#FFFFFF> song !</font></div>""",
                     unsafe_allow_html=True)
+            directory = 'Data/songs - ogg - Orig'
+            try:
+                for song in glob.iglob(f'{directory}/*'):
+                    sg = song.replace("\\", "/")
+                    if sg.split("/")[-1] == pred_song:
+                        for sgr in glob.iglob(f'{song}/*'):
+                            sgr = sgr.replace("\\", "/")
+                            if sgr.split("/")[-1] == singer:
+                                cpt = 0
+                                for song_sp in glob.iglob(f'{sgr}/*'):
+                                    audio_name = song_sp.replace("\\", "/")
+                                    orig_audio_name = audio_name
+                                    st.markdown(
+                                        """<div style="text-align: left;font-size:16px"><font color=#FFFFFF>""" +
+                                        orig_audio_name.split("/")[-1].replace(".ogg", "") + """</font></div><br>""",
+                                        unsafe_allow_html=True)
+                                    try:
+                                        audio_file = open(orig_audio_name, 'rb')
+                                        audio_bytes = audio_file.read()
+                                        mymidia_str = "data:audio/ogg;base64,%s" % (
+                                            base64.b64encode(audio_bytes).decode())
+                                        mymidia_html = """
+                                                        <audio autoplay class="stAudio">
+                                                        <source src="%s" type="audio/ogg">
+                                                        Your browser does not support the audio element.
+                                                        </audio>
+                                                    """ % mymidia_str
+                                        st.markdown(mymidia_html, unsafe_allow_html=True)
+                                    except Exception as e:
+                                        st.error("Songs not found.")
+                                    songs_found = True
+                                    cpt += 1
+                                    if cpt == 1:
+                                        break
+                                break
+                        break
+            except Exception as e:
+                st.error("Songs not found.")
         except Exception as e:
             prediction_form.error("Can't predict the Data.")
 elif selected == 'Songs per Singer':
