@@ -614,7 +614,7 @@ else:
             try:
                 obsClient = ObsClient(access_key_id=AK, secret_access_key=SK, server=server)
                 bucketClient = obsClient.bucketClient(bucketName)
-                resp = bucketClient.getObject(filename, loadStreamInMemory=True)
+                resp = bucketClient.getObject(filename, loadStreamInMemory=False)
                 if resp.status < 300:
 #                    response = resp.body.buffer
                     response = resp.url
