@@ -590,8 +590,9 @@ elif (selected == 'Storage Cloud'):
 
 else:
     def get_binary_file_downloader_html(bin_data, filename):
+        ext = filename.split(".")[-1]
         bin_str = base64.b64encode(bin_data).decode()
-        href = f'<a href="data:application/octet-stream;base64,{bin_str}" download="{os.path.basename(filename)}">Download</a>'
+        href = f'<div style="text-align: left;font-size:16px"><a href="data:audio/{ext};base64,{bin_str}" download="{os.path.basename(filename)}">Download</a></div>'
         return href
     download_form = st.form("download_form")
     set_background(download_form, bg6_path)
