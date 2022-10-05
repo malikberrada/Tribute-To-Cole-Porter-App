@@ -201,8 +201,8 @@ elif selected == "Singers prediction":
                                 for song_sp in glob.iglob(f'{sgr}/*'):
                                     audio_name = song_sp.replace("\\", "/")
                                     orig_audio_name = audio_name
-                                    st.markdown(
-                                        """<div style="text-align: left;font-size:16px"><font color=#FFFFFF>Please, wait for loading the song...</font></div><br>""",
+                                    prediction_form.markdown(
+                                        """<div style="text-align: left;font-size:16px"><font color=#FFFFFF>Please, wait for loading the song...</font></div>""",
                                         unsafe_allow_html=True)
                                     try:
                                         audio_file = open(orig_audio_name, 'rb')
@@ -215,11 +215,11 @@ elif selected == "Singers prediction":
                                                         Your browser does not support the audio element.
                                                         </audio>
                                                     """ % mymidia_str
-                                        st.markdown(mymidia_html, unsafe_allow_html=True)
+                                        prediction_form.markdown(mymidia_html, unsafe_allow_html=True)
                                     except Exception as e:
                                         st.error("Songs not found.")
-                                    st.markdown(
-                                        """<div style="text-align: left;font-size:16px"><font color=#FFFFFF>You can stop the song by switching tabs.</font></div><br>""",
+                                    prediction_form.markdown(
+                                        """<div style="text-align: left;font-size:16px"><font color=#FFFFFF>You can stop the song by switching tabs.</font></div>""",
                                         unsafe_allow_html=True)
                                     songs_found = True
                                     cpt += 1
