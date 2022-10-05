@@ -32,7 +32,7 @@ side_bg_ext = "png"
 side_bg = "pics/Happy-Cole-Porter-3.png"
 
 with st.sidebar:
-    selected = option_menu("Main Menu", ["Home", 'Songs per Singer', 'Singers per song', 'Storage Cloud', 'Cloud Downloading', 'Who sang'\
+    selected = option_menu("Main Menu", ["Home", 'Songs per Singer', 'Singers per song', 'Storage Cloud', 'Cloud Downloading', 'Who sang ?'\
                                        ],
         icons=['house', 'bi bi-music-note-list', 'bi bi-music-note', 'bi bi-cloud-upload', 'bi bi-cloud-download', 'bi bi-robot'], menu_icon="cast", default_index=0, \
  \
@@ -119,10 +119,10 @@ if selected == "Home":
 
 
 
-elif selected == "Who sang":
+elif selected == "Who sang ?":
     prediction_form = st.form("prediction")
     set_background(prediction_form, bg2_path)
-    prediction_form.markdown('## <font color=#FFFFFF>Singers prediction</font>', unsafe_allow_html=True)
+    prediction_form.markdown('## <font color=#FFFFFF>Who sang ?</font>', unsafe_allow_html=True)
     prediction_form.markdown(
         """<div style="text-align: justify;font-size:16px"><font color=#FFFFFF>If you have songs of which you don't know the singer and which can be sung by the following singers: Louis Armstrong, Nat king Cole, Ray Charles, Frank Sinatra, Sarah Vaughan, Ethel Merman and Ella Fitzgerald, you can predict the real singer through this app. It can do this with an accuracy of 85.2%. it can also predict the most likely song with 78.6% accuracy.</font></div>""",
         unsafe_allow_html=True)
