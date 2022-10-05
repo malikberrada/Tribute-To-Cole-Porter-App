@@ -617,7 +617,7 @@ else:
                 resp = bucketClient.getObject(filename, loadStreamInMemory=False)
                 if resp.status < 300:
 #                    response = resp.body.buffer
-                    response = resp.url
+                    response = resp.body.url
                     if response is not None:
                         # ext = filename.split(".")[-1]
                         # is_clk_download = st.download_button(
