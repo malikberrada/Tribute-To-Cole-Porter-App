@@ -32,9 +32,9 @@ side_bg_ext = "png"
 side_bg = "pics/Happy-Cole-Porter-3.png"
 
 with st.sidebar:
-    selected = option_menu("Main Menu", ["Home", 'Singers prediction', 'Songs per Singer', 'Singers per song', 'Storage Cloud', 'Cloud Downloading'\
+    selected = option_menu("Main Menu", ["Home", 'Songs per Singer', 'Singers per song', 'Storage Cloud', 'Cloud Downloading', 'Who sang'\
                                        ],
-        icons=['house', 'bi bi-robot', 'bi bi-music-note-list', 'bi bi-music-note', 'bi bi-cloud-upload', 'bi bi-cloud-download'], menu_icon="cast", default_index=0, \
+        icons=['house', 'bi bi-music-note-list', 'bi bi-music-note', 'bi bi-cloud-upload', 'bi bi-cloud-download', 'bi bi-robot'], menu_icon="cast", default_index=0, \
  \
        styles={
            "container": {"background-image": f"""url(data:image/{side_bg_ext};base64,{base64.b64encode(open(side_bg, "rb").read()).decode()});background-repeat:no-repeat"""
@@ -107,21 +107,25 @@ dict_singers_pics['Sutton Foster -  Tap dances'] = "pics/singers_pics/Sutton-Fos
 if selected == "Home":
     st.markdown('# <font color=#FFFFFF>Tribute to Cole Porter</font>', unsafe_allow_html=True)
     set_background(st, bg1_path)
-    st.markdown('## <font color=#FFFFFF>About</font>', unsafe_allow_html=True)
-    st.markdown(
-        """<div style="text-align: justify;"><p><font color=#FFFFFF>This app was developed as a tribute to Cole Porter. Porter is one of the wittiest lyricists in the world, with a subtle expression and a great mastery of inner rhythm. We have developed this application to introduce the rhythms of popular songs to today's youth and awaken hidden talents around the world. Porter's work remains a model of elegance and refinement in the popular song genre. This app predicts the singers of the songs sung by Cole Porter and other famous Jazz singers. If you have songs of which you don't know the singer and which can be sung by the following singers: Louis Armstrong, Nat king Cole, Ray Charles, Frank Sinatra, Sarah Vaughan, Ethel Merman and Ella Fitzgerald, you can predict the real singer through this app. It can do this with an accuracy of 85.2%. It can also predict the most likely song with 78.6% accuracy.</font></p></div>""",
-        unsafe_allow_html=True)
     st.markdown("## <font color=#FFFFFF>Who's Cole Porter</font>", unsafe_allow_html=True)
     st.markdown(
         """<div style="text-align: justify;"><p><font color=#FFFFFF>American composer and lyricist <strong>Cole Porter</strong> brought international momentum to American musical comedy, embodying the sophistication of his songs in his life.</font></p><p><font color=#FFFFFF>Born June 9, 1891 in Peru, Indiana, Porter is the grandson of a millionaire speculator, and the affluence in which he lived likely played a role in the poise and urbanity of his musical style. He began to study the violin at the age of six and the piano at eight; at ten he wrote an operetta in the style of Gilbert and Sullivan and saw his first composition, a waltz, published a year later. While studying at Yale, he composed approximately three hundred songs, including <i>Eli</i>, <i>Bulldog</i>, and <i>Bingo Eli Yale</i>, as well as performing for faculty; he continued his studies at Harvard Law School (1914) and at the Harvard Graduate School of Arts and Sciences in Music (1915-1916). He made his Broadway debut with the musical <i>See America First</i> (1916), which however left the bill after fifteen performances.</font></p><p><font color=#FFFFFF>In 1917, after the United States entered the war, Porter went to France (without joining the Allied troops, as will be said later). He became a traveling playboy in Europe and, although he was quite openly gay, married a wealthy divorced American older than him, Linda Lee Thomas, on December 18, 1919; they spent the next twenty years running social parties and taking group trips, sometimes together, sometimes separately.</p><p>In 1928, Porter composed several songs for a successful Broadway play, <i>Paris</i>. A string of successful musicals followed, including <i>Fifty Million Frenchmen</i> (1929), <i>Gay Divorcée</i> (1932), <i>Anything Goes</i> (1934), <i>Red, Hot and Blue</i> (1934), <i>Jubilee</i> (1935), <i>Dubarry Was a Lady</i> (1939) , <i>Panama Hattie</i> (1940), <i>Kiss me, Kate</i> (1948, based on Shakespeare's <i>The Taming of the Shrew</i>), <i>Can-Can</i> (1953) and <i>Silk Stockings</i> (1955). At the same time, he worked on the music for several films. Over the years he has written songs and lyrics as brilliant as <i>Night and Day</i>, <i>I Get a Kick out of you</i>, <i>Begin the Beguine</i>, </i>I've Got you Under my Skin</i>, <i>In The Still of The Night</i>, <i>Just One of Those Things</i>, <i>Love for Sale</i>, <i>My Heart Belongs to Daddy</i>, <i>Too Darn Hot</i>, <i>It's Delovely</i>, <i>I Concentrate on you</i>, <i>Always True to You in My Fashion</i>, and <i>I Love Paris</i>. He has the art of making songs that have entered the repertoire, such as <i>Let's Do It</i> and <i>You're the Top</i>, the best known. You can download my list of musics and store them in Huawei storage Cloud.</font></p>"</div>""",
         unsafe_allow_html=True)
+    st.markdown('## <font color=#FFFFFF>About this App</font>', unsafe_allow_html=True)
+    st.markdown(
+        """<div style="text-align: justify;"><p><font color=#FFFFFF>This app was developed as a tribute to Cole Porter. It collects his main known songs, as well as the main singers who sang his songs like: Louis Armstrong, Nat king Cole, Ray Charles, Frank Sinatra, Sarah Vaughan, Ethel Merman and Ella Fitzgerald. In addition, if you have a song whose singer you don't know and which can be sung by one of the singers mentioned above, the application can find it for you. Porter is one of the wittiest lyricists in the world, with a subtle expression and a great mastery of inner rhythm. We have developed this application to introduce the rhythms of popular songs to today's youth and awaken hidden talents around the world. Porter's work remains a model of elegance and refinement in the popular song genre. This app can find the singers of the songs sung by Cole Porter and other famous Jazz singers with an accuracy of 85.2%. It can also find the most likely song with 78.6% accuracy.</font></p></div>""",
+        unsafe_allow_html=True)
 
 
 
-elif selected == "Singers prediction":
+
+elif selected == "Who sang":
     prediction_form = st.form("prediction")
     set_background(prediction_form, bg2_path)
     prediction_form.markdown('## <font color=#FFFFFF>Singers prediction</font>', unsafe_allow_html=True)
+    prediction_form.markdown(
+        """<div style="text-align: justify;font-size:16px"><font color=#FFFFFF>If you have songs of which you don't know the singer and which can be sung by the following singers: Louis Armstrong, Nat king Cole, Ray Charles, Frank Sinatra, Sarah Vaughan, Ethel Merman and Ella Fitzgerald, you can predict the real singer through this app. It can do this with an accuracy of 85.2%. it can also predict the most likely song with 78.6% accuracy.</font></div>""",
+        unsafe_allow_html=True)
     prediction_form.markdown("""<div style="text-align: left;font-size:16px"><font color=#FFFFFF>Enter a Cole Porter song:</font></div>""", unsafe_allow_html=True)
     model_path = r'pickle/Cole-Porter-mfcc-neural-network-model-95p.h5'
     l_encoder_path = 'pickle/Cole-Porter-label-encoder.pkl'
@@ -129,7 +133,7 @@ elif selected == "Singers prediction":
         file = prediction_form.file_uploader("",type=['mp3', 'ogg', 'flac', 'm4a'], accept_multiple_files=False, key="precition_file_uploader")
     except Exception as e:
         prediction_form.error("Invalid file format.")
-    is_clk_pred = prediction_form.form_submit_button("Predict")
+    is_clk_pred = prediction_form.form_submit_button("Who sang")
     if is_clk_pred:
         extracted_features_pred = []
         try:
