@@ -589,11 +589,6 @@ elif (selected == 'Storage Cloud'):
                     st.error("We can't upload the song.")
 
 else:
-    def get_binary_file_downloader_html(bin_data, filename):
-        ext = filename.split(".")[-1]
-        bin_str = base64.b64encode(bin_data).decode()
-        href = f'<div style="text-align: left;font-size:16px"><a href="data:audio/{ext};base64,{bin_str}" download="{os.path.basename(filename)}">Download</a></div>'
-        return href
     download_form = st.form("download_form")
     set_background(download_form, bg6_path)
     download_form.markdown('## <font color=#FBFBFB>Cloud Downloading</font>', unsafe_allow_html=True)
@@ -623,7 +618,16 @@ else:
                 if resp.status < 300:
                     response = resp.body.buffer
                     if response is not None:
-                        st.markdown(get_binary_file_downloader_html(response, filename), unsafe_allow_html=True)
+                        ext = filename.split(".")[-1]
+                        is_clk_download = st.download_button(
+                            "Download",
+                            key=None,
+                            data=response,
+                            file_name=filename,
+                            mime='audio/' + ext,
+                            kwargs=None,
+                            disabled=False,
+                        )
                     else:
                         st.error("Wrong filename.")
                 else:
