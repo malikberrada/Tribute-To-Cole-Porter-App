@@ -616,18 +616,21 @@ else:
                 bucketClient = obsClient.bucketClient(bucketName)
                 resp = bucketClient.getObject(filename, loadStreamInMemory=True)
                 if resp.status < 300:
-                    response = resp.body.buffer
+#                    response = resp.body.buffer
+                    response = resp.url
                     if response is not None:
-                        ext = filename.split(".")[-1]
-                        is_clk_download = st.download_button(
-                            "Download",
-                            key=None,
-                            data=response,
-                            file_name=filename,
-                            mime='audio/' + ext,
-                            kwargs=None,
-                            disabled=False,
-                        )
+                        # ext = filename.split(".")[-1]
+                        # is_clk_download = st.download_button(
+                        #     "Download",
+                        #     key=None,
+                        #     data=response,
+                        #     file_name=filename,
+                        #     mime='audio/' + ext,
+                        #     kwargs=None,
+                        #     disabled=False,
+                        # )
+                        href = f'<a href="' + response + '">Download</a>'
+                        st.markdown(href, unsafe_allow_html=True)
                     else:
                         st.error("Wrong filename.")
                 else:
