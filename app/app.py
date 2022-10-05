@@ -124,7 +124,7 @@ elif selected == "Who sang ?":
     set_background(prediction_form, bg2_path)
     prediction_form.markdown('## <font color=#FFFFFF>Who sang ?</font>', unsafe_allow_html=True)
     prediction_form.markdown(
-        """<div style="text-align: justify;font-size:16px"><font color=#FFFFFF>If you have songs of which you don't know the singer and which can be sung by the following singers: Louis Armstrong, Nat king Cole, Ray Charles, Frank Sinatra, Sarah Vaughan, Ethel Merman and Ella Fitzgerald, you can predict the real singer through this app. It can do this with an accuracy of 85.2%. it can also predict the most likely song with 78.6% accuracy.</font></div>""",
+        """<div style="text-align: justify;font-size:16px"><font color=#FFFFFF>If you have songs of which you don't know the singer and which can be sung by the following singers: Louis Armstrong, Nat king Cole, Ray Charles, Frank Sinatra, Sarah Vaughan, Ethel Merman and Ella Fitzgerald, you can predict the real singer through this app. It can do this with an accuracy of 85.2%. It can also predict the most likely song with 78.6% accuracy.</font></div><br>""",
         unsafe_allow_html=True)
     prediction_form.markdown("""<div style="text-align: left;font-size:16px"><font color=#FFFFFF>Enter a Cole Porter song:</font></div>""", unsafe_allow_html=True)
     model_path = r'pickle/Cole-Porter-mfcc-neural-network-model-95p.h5'
