@@ -109,11 +109,11 @@ if selected == "Home":
     set_background(st, bg1_path)
     st.markdown("## <font color=#FFFFFF>Who's Cole Porter</font>", unsafe_allow_html=True)
     st.markdown(
-        """<div style="text-align: justify;"><p><font color=#FFFFFF>American composer and lyricist <strong>Cole Porter</strong> brought international momentum to American musical comedy, embodying the sophistication of his songs in his life.</font></p><p><font color=#FFFFFF>Born June 9, 1891 in Peru, Indiana, Porter is the grandson of a millionaire speculator, and the affluence in which he lived likely played a role in the poise and urbanity of his musical style. He began to study the violin at the age of six and the piano at eight; at ten he wrote an operetta in the style of Gilbert and Sullivan and saw his first composition, a waltz, published a year later. While studying at Yale, he composed approximately three hundred songs, including <i>Eli</i>, <i>Bulldog</i>, and <i>Bingo Eli Yale</i>, as well as performing for faculty; he continued his studies at Harvard Law School (1914) and at the Harvard Graduate School of Arts and Sciences in Music (1915-1916). He made his Broadway debut with the musical <i>See America First</i> (1916), which however left the bill after fifteen performances.</font></p><p><font color=#FFFFFF>In 1917, after the United States entered the war, Porter went to France (without joining the Allied troops, as will be said later). He became a traveling playboy in Europe and, although he was quite openly gay, married a wealthy divorced American older than him, Linda Lee Thomas, on December 18, 1919; they spent the next twenty years running social parties and taking group trips, sometimes together, sometimes separately.</p><p>In 1928, Porter composed several songs for a successful Broadway play, <i>Paris</i>. A string of successful musicals followed, including <i>Fifty Million Frenchmen</i> (1929), <i>Gay Divorcée</i> (1932), <i>Anything Goes</i> (1934), <i>Red, Hot and Blue</i> (1934), <i>Jubilee</i> (1935), <i>Dubarry Was a Lady</i> (1939) , <i>Panama Hattie</i> (1940), <i>Kiss me, Kate</i> (1948, based on Shakespeare's <i>The Taming of the Shrew</i>), <i>Can-Can</i> (1953) and <i>Silk Stockings</i> (1955). At the same time, he worked on the music for several films. Over the years he has written songs and lyrics as brilliant as <i>Night and Day</i>, <i>I Get a Kick out of you</i>, <i>Begin the Beguine</i>, </i>I've Got you Under my Skin</i>, <i>In The Still of The Night</i>, <i>Just One of Those Things</i>, <i>Love for Sale</i>, <i>My Heart Belongs to Daddy</i>, <i>Too Darn Hot</i>, <i>It's Delovely</i>, <i>I Concentrate on you</i>, <i>Always True to You in My Fashion</i>, and <i>I Love Paris</i>. He has the art of making songs that have entered the repertoire, such as <i>Let's Do It</i> and <i>You're the Top</i>, the best known. You can download my list of musics and store them in Huawei storage Cloud.</font></p>"</div>""",
+        """<div style="text-align: justify;"><p><font color=#FFFFFF>American composer and lyricist <strong>Cole Porter</strong> brought international momentum to American musical comedy, embodying the sophistication of his songs in his life.</font></p><p><font color=#FFFFFF>Born June 9, 1891 in Peru, Indiana, Porter is the grandson of a millionaire speculator, and the affluence in which he lived likely played a role in the poise and urbanity of his musical style. He began to study the violin at the age of six and the piano at eight; at ten he wrote an operetta in the style of Gilbert and Sullivan and saw his first composition, a waltz, published a year later. While studying at Yale, he composed approximately three hundred songs, including <i>Eli</i>, <i>Bulldog</i>, and <i>Bingo Eli Yale</i>, as well as performing for faculty; he continued his studies at Harvard Law School (1914) and at the Harvard Graduate School of Arts and Sciences in Music (1915-1916). He made his Broadway debut with the musical <i>See America First</i> (1916), which however left the bill after fifteen performances.</font></p><p><font color=#FFFFFF>In 1917, after the United States entered the war, Porter went to France (without joining the Allied troops, as will be said later). He became a traveling playboy in Europe and, although he was quite openly gay, married a wealthy divorced American older than him, Linda Lee Thomas, on December 18, 1919; they spent the next twenty years running social parties and taking group trips, sometimes together, sometimes separately.</p><p>In 1928, Porter composed several songs for a successful Broadway play, <i>Paris</i>. A string of successful musicals followed, including <i>Fifty Million Frenchmen</i> (1929), <i>Gay Divorcée</i> (1932), <i>Anything Goes</i> (1934), <i>Red, Hot and Blue</i> (1934), <i>Jubilee</i> (1935), <i>Dubarry Was a Lady</i> (1939) , <i>Panama Hattie</i> (1940), <i>Kiss me, Kate</i> (1948, based on Shakespeare's <i>The Taming of the Shrew</i>), <i>Can-Can</i> (1953) and <i>Silk Stockings</i> (1955). At the same time, he worked on the music for several films. Over the years he has written songs and lyrics as brilliant as <i>Night and Day</i>, <i>I Get a Kick out of you</i>, <i>Begin the Beguine</i>, </i>I've Got you Under my Skin</i>, <i>In The Still of The Night</i>, <i>Just One of Those Things</i>, <i>Love for Sale</i>, <i>My Heart Belongs to Daddy</i>, <i>Too Darn Hot</i>, <i>It's Delovely</i>, <i>I Concentrate on you</i>, <i>Always True to You in My Fashion</i>, and <i>I Love Paris</i>. He has the art of making songs that have entered the repertoire, such as <i>Let's Do It</i> and <i>You're the Top</i>, the best known.<br>You can download my list of musics and store them in Huawei storage Cloud.</font></p></div>""",
         unsafe_allow_html=True)
     st.markdown('## <font color=#FFFFFF>About</font>', unsafe_allow_html=True)
     st.markdown(
-        """<div style="text-align: justify;"><p><font color=#FFFFFF>This app was developed as a tribute to Cole Porter. It collects his main known songs, as well as the main singers who sang his songs like: Louis Armstrong, Nat king Cole, Ray Charles, Frank Sinatra, Sarah Vaughan, Ethel Merman and Ella Fitzgerald. In addition, if you have a song whose singer you don't know and which can be sung by one of the singers mentioned above, the application can find it for you. Porter is one of the wittiest lyricists in the world, with a subtle expression and a great mastery of inner rhythm. We have developed this application to introduce the rhythms of popular songs to today's youth and awaken hidden talents around the world. Porter's work remains a model of elegance and refinement in the popular song genre. This app can find the singers of the songs sung by Cole Porter and other famous Jazz singers with an accuracy of 85.2%. It can also find the most likely song with 78.6% accuracy.</font></p></div>""",
+        """<div style="text-align: justify;"><p><font color=#FFFFFF>This app was developed as a tribute to Cole Porter. It collects his main known songs, as well as the main singers who sang his songs like: Louis Armstrong, Nat king Cole, Ray Charles, Frank Sinatra, Sarah Vaughan, Ethel Merman and Ella Fitzgerald. In addition, if you have a song whose singer you don't know and which can be sung by one of the singers mentioned above, the application can find it for you. Porter is one of the wittiest lyricists in the world, with a subtle expression and a great mastery of inner rhythm. We have developed this application to introduce the rhythms of popular songs to today's youth and awaken hidden talents around the world. Porter's work remains a model of elegance and refinement in the popular song genre.<br>This app can find the singers of the songs sung by Cole Porter and other famous Jazz singers with an accuracy of 85.2%. It can also find the most likely song with 78.6% accuracy.</font></p></div>""",
         unsafe_allow_html=True)
 
 
@@ -614,23 +614,20 @@ else:
             try:
                 obsClient = ObsClient(access_key_id=AK, secret_access_key=SK, server=server)
                 bucketClient = obsClient.bucketClient(bucketName)
-                resp = bucketClient.getObject(filename, loadStreamInMemory=False)
+                resp = bucketClient.getObject(filename, loadStreamInMemory=True)
                 if resp.status < 300:
-#                    response = resp.body.buffer
-                    response = resp.body.url
+                    response = resp.body.buffer
                     if response is not None:
-                        # ext = filename.split(".")[-1]
-                        # is_clk_download = st.download_button(
-                        #     "Download",
-                        #     key=None,
-                        #     data=response,
-                        #     file_name=filename,
-                        #     mime='audio/' + ext,
-                        #     kwargs=None,
-                        #     disabled=False,
-                        # )
-                        href = f'<a href="' + response + '">Download</a>'
-                        st.markdown(href, unsafe_allow_html=True)
+                        ext = filename.split(".")[-1]
+                        is_clk_download = st.download_button(
+                            "Download",
+                            key=None,
+                            data=response,
+                            file_name=filename,
+                            mime='audio/' + ext,
+                            kwargs=None,
+                            disabled=False,
+                        )
                     else:
                         st.error("Wrong filename.")
                 else:
