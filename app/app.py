@@ -619,7 +619,7 @@ else:
                     response = resp.body.buffer
                     if response is not None:
                         try:
-                            st.audio(response, format='audio/mp3', start_time=0)
+                            st.audio(response, format='audio/ogg', start_time=0)
                         except Exception as e:
                             st.error("Exception: " + e + "Singer not found.")
                     else:
