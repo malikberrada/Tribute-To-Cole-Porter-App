@@ -618,10 +618,6 @@ else:
                 if resp.status < 300:
                     response = resp.body.buffer
                     if response is not None:
-                        st.markdown(
-                            """<div style="text-align: left;font-size:16px"><font color=#FFFFFF>""" +
-                            filename + """</font></div><br>""",
-                            unsafe_allow_html=True)
                         try:
                             st.audio(response, format='audio/ogg', start_time=0)
                         except Exception as e:
