@@ -32,9 +32,9 @@ side_bg_ext = "png"
 side_bg = "pics/Happy-Cole-Porter-3.png"
 
 with st.sidebar:
-    selected = option_menu("Main Menu", ["Home", 'Songs per Singer', 'Singers per song', 'Storage Cloud', 'Cloud Downloading', 'Who sang ?'\
+    selected = option_menu("Main Menu", ["Home", 'Songs per Singer', 'Singers per song', 'Storage Cloud', 'Cloud Playback', 'Who sang ?'\
                                        ],
-        icons=['house', 'bi bi-music-note-list', 'bi bi-music-note', 'bi bi-cloud-upload', 'bi bi-cloud-download', 'bi bi-robot'], menu_icon="cast", default_index=0, \
+        icons=['house', 'bi bi-music-note-list', 'bi bi-music-note', 'bi bi-cloud-upload', 'fa-solid fa-cloud-music', 'bi bi-robot'], menu_icon="cast", default_index=0, \
  \
        styles={
            "container": {"background-image": f"""url(data:image/{side_bg_ext};base64,{base64.b64encode(open(side_bg, "rb").read()).decode()});background-repeat:no-repeat"""
@@ -591,7 +591,7 @@ elif (selected == 'Storage Cloud'):
 else:
     download_form = st.form("download_form")
     set_background(download_form, bg6_path)
-    download_form.markdown('## <font color=#FBFBFB>Cloud Downloading</font>', unsafe_allow_html=True)
+    download_form.markdown('## <font color=#FBFBFB>Cloud Playback</font>', unsafe_allow_html=True)
     download_form.markdown(
         """<div style="text-align: left;font-size:16px"><font color=#FBFBFB>If you've uploaded a song on the Cloud, please enter it's filename:</font></div>""",
         unsafe_allow_html=True)
@@ -618,16 +618,14 @@ else:
                 if resp.status < 300:
                     response = resp.body.buffer
                     if response is not None:
-                        ext = filename.split(".")[-1]
-                        is_clk_download = st.download_button(
-                            "Download",
-                            key=None,
-                            data=response,
-                            file_name=filename,
-                            mime='audio/' + ext,
-                            kwargs=None,
-                            disabled=False,
-                        )
+                        st.markdown(
+                            """<div style="text-align: left;font-size:16px"><font color=#FFFFFF>""" +
+                            filename + """</font></div><br>""",
+                            unsafe_allow_html=True)
+                        try:
+                            st.audio(response, format='audio/ogg', start_time=0)
+                        except Exception as e:
+                            st.error("Exception: " + e + "Singer not found.")
                     else:
                         st.error("Wrong filename.")
                 else:
