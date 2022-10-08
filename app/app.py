@@ -104,6 +104,28 @@ dict_singers_pics['Ray Charles'] = "pics/singers_pics/Ray_Charles.jpg"
 dict_singers_pics['Louis Armstrong'] = "pics/singers_pics/Louis_Armstrong.jpg"
 dict_singers_pics['Sutton Foster -  Tap dances'] = "pics/singers_pics/Sutton-Foster - tap dances-3.gif"
 
+dict_songs = {}
+dict_songs['Anything goes'] = 'Anything goes'
+dict_songs['Begin the Beguine'] = 'Begin the Beguine'
+dict_songs['Blue Skies'] = 'Blue Skies'
+dict_songs['C est magnifique'] = "C'est magnifique"
+dict_songs['Don t Fence in Me'] = "Don't Fence Me in"
+dict_songs['Easy to Love'] = 'Easy to Love'
+dict_songs['Ev ry time we say goodbye'] = "Ev'ry time we say goodbye"
+dict_songs['I Get A Kick Out Of You'] = 'I Get A Kick Out Of You'
+dict_songs['I concentrate on you'] = 'I concentrate on you'
+dict_songs['I love Paris'] = 'I love Paris'
+dict_songs['I ve got you under my skin'] = "I've got you under my skin"
+dict_songs['In the still of the night'] = 'In the still of the night'
+dict_songs['It s de-lovely'] = "It's de-lovely"
+dict_songs['Let s do it'] = "Let's do it"
+dict_songs['Love for Sale'] = 'Love for Sale'
+dict_songs['Night and day'] = 'Night and day'
+dict_songs['So In Love'] = 'So In Love'
+dict_songs['What is this thing called love'] = 'What is this thing called love'
+dict_songs['You Do Something To Me'] = 'You Do Something To Me'
+dict_songs['You re the top'] = "You're the top"
+
 if selected == "Home":
     st.markdown('# <font color=#FFFFFF>Tribute to Cole Porter</font>', unsafe_allow_html=True)
     set_background(st, bg1_path)
@@ -120,27 +142,6 @@ if selected == "Home":
 
 
 elif selected == "Who sang ?":
-    dict_songs = {}
-    dict_songs['Anything goes'] = 'Anything goes'
-    dict_songs['Begin the Beguine'] = 'Begin the Beguine'
-    dict_songs['Blue Skies'] = 'Blue Skies'
-    dict_songs['C est magnifique'] = "C'est magnifique"
-    dict_songs['Don t Fence in Me'] = "Don't Fence Me in"
-    dict_songs['Easy to Love'] = 'Easy to Love'
-    dict_songs['Ev ry time we say goodbye'] = "Ev'ry time we say goodbye"
-    dict_songs['I Get A Kick Out Of You'] = 'I Get A Kick Out Of You'
-    dict_songs['I concentrate on you'] = 'I concentrate on you'
-    dict_songs['I love Paris'] = 'I love Paris'
-    dict_songs['I ve got you under my skin'] = "I've got you under my skin"
-    dict_songs['In the still of the night'] = 'In the still of the night'
-    dict_songs['It s de-lovely'] = "It's de-lovely"
-    dict_songs['Let s do it'] = "Let's do it"
-    dict_songs['Love for Sale'] = 'Love for Sale'
-    dict_songs['Night and day'] = 'Night and day'
-    dict_songs['So In Love'] = 'So In Love'
-    dict_songs['What is this thing called love'] = 'What is this thing called love'
-    dict_songs['You Do Something To Me'] = 'You Do Something To Me'
-    dict_songs['You re the top'] = "You're the top"
     prediction_form = st.form("prediction")
     set_background(prediction_form, bg2_path)
     prediction_form.markdown('## <font color=#FFFFFF>Who sang ?</font>', unsafe_allow_html=True)
@@ -338,28 +339,6 @@ elif selected == 'Singers per song':
     set_background(st, bg4_path)
     st.markdown('## <font color=#FFFFFF>Singers per song</font>', unsafe_allow_html=True)
     st.markdown("""<div style="text-align: left;font-size:16px"><font color=#FFFFFF>Choose the song:</font></div>""", unsafe_allow_html=True)
-    dict_songs = {}
-    dict_songs['Anything goes'] = 'Anything goes'
-    dict_songs['Begin the Beguine'] = 'Begin the Beguine'
-    dict_songs['Blue Skies'] = 'Blue Skies'
-    dict_songs['C est magnifique'] = "C'est magnifique"
-    dict_songs['Don t Fence in Me'] = "Don't Fence Me in"
-    dict_songs['Easy to Love'] = 'Easy to Love'
-    dict_songs['Ev ry time we say goodbye'] = "Ev'ry time we say goodbye"
-    dict_songs['I Get A Kick Out Of You'] = 'I Get A Kick Out Of You'
-    dict_songs['I concentrate on you'] = 'I concentrate on you'
-    dict_songs['I love Paris'] = 'I love Paris'
-    dict_songs['I ve got you under my skin'] = "I've got you under my skin"
-    dict_songs['In the still of the night'] = 'In the still of the night'
-    dict_songs['It s de-lovely'] = "It's de-lovely"
-    dict_songs['Let s do it'] = "Let's do it"
-    dict_songs['Love for Sale'] = 'Love for Sale'
-    dict_songs['Night and day'] = 'Night and day'
-    dict_songs['So In Love'] = 'So In Love'
-    dict_songs['What is this thing called love'] = 'What is this thing called love'
-    dict_songs['You Do Something To Me'] = 'You Do Something To Me'
-    dict_songs['You re the top'] = "You're the top"
-
     song_name = st.selectbox('', (dict_songs['Anything goes'],
                              dict_songs['Begin the Beguine'],
                              dict_songs['Blue Skies'],
