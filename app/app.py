@@ -120,6 +120,27 @@ if selected == "Home":
 
 
 elif selected == "Who sang ?":
+    dict_songs = {}
+    dict_songs['Anything goes'] = 'Anything goes'
+    dict_songs['Begin the Beguine'] = 'Begin the Beguine'
+    dict_songs['Blue Skies'] = 'Blue Skies'
+    dict_songs['C est magnifique'] = "C'est magnifique"
+    dict_songs['Don t Fence in Me'] = "Don't Fence Me in"
+    dict_songs['Easy to Love'] = 'Easy to Love'
+    dict_songs['Ev ry time we say goodbye'] = "Ev'ry time we say goodbye"
+    dict_songs['I Get A Kick Out Of You'] = 'I Get A Kick Out Of You'
+    dict_songs['I concentrate on you'] = 'I concentrate on you'
+    dict_songs['I love Paris'] = 'I love Paris'
+    dict_songs['I ve got you under my skin'] = "I've got you under my skin"
+    dict_songs['In the still of the night'] = 'In the still of the night'
+    dict_songs['It s de-lovely'] = "It's de-lovely"
+    dict_songs['Let s do it'] = "Let's do it"
+    dict_songs['Love for Sale'] = 'Love for Sale'
+    dict_songs['Night and day'] = 'Night and day'
+    dict_songs['So In Love'] = 'So In Love'
+    dict_songs['What is this thing called love'] = 'What is this thing called love'
+    dict_songs['You Do Something To Me'] = 'You Do Something To Me'
+    dict_songs['You re the top'] = "You're the top"
     prediction_form = st.form("prediction")
     set_background(prediction_form, bg2_path)
     prediction_form.markdown('## <font color=#FFFFFF>Who sang ?</font>', unsafe_allow_html=True)
@@ -166,7 +187,7 @@ elif selected == "Who sang ?":
             pred_extracted_features_df["predicted_Song"] = pred_extracted_features_df["Predicted_Class"].apply(
                 lambda x: x.split(" - ")[0])
             singer = pred_extracted_features_df["predicted_Singer"].values[-1]
-            pred_song = pred_extracted_features_df["predicted_Song"].values[-1]
+            pred_song = [k for k, v in dict_songs.items() if v == pred_extracted_features_df["predicted_Song"].values[-1]][-1]
             prediction_form.markdown(
                 """<div style="text-align: left;font-size:17px"><font color=#FFFFFF>Its singer is </font><font color=#204E1E>""" + singer.split(" - ")[0] + """</font></div>""",
                 unsafe_allow_html=True)
