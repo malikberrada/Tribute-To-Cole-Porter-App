@@ -18,7 +18,7 @@ from streamlit.scriptrunner import add_script_run_ctx, get_script_run_ctx
 from threading import Thread
 
 try:
-    im = Image.open("pics/music.jpg")
+    im = Image.open("/pics/music.jpg")
 except Exception as e:
     st.error("Can't open App icon.")
 st.set_page_config(
