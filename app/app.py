@@ -31,7 +31,7 @@ st.set_page_config(
                   )
 
 side_bg_ext = "png"
-side_bg = "pics/Happy-Cole-Porter-3.png"
+side_bg = "../pics/Happy-Cole-Porter-3.png"
 
 with st.sidebar:
     selected = option_menu("Main Menu", ["Home", 'Songs per Singer', 'Singers per song', 'Storage Cloud', 'Cloud Playback', 'Who sang ?'\
@@ -83,28 +83,28 @@ def features_extractor(file):
     except Exception as e:
         st.error("Can't extract features.")
 
-bg1_path = r"pics/Cole_porter_blur_bg_1_3.png"
-bg2_path = r"pics/Cole_porter_blur_bg_2_5.png"
-bg3_path = r"pics/Cole_porter_blur_bg_3_3.png"
-bg4_path = r"pics/Cole_porter_blur_bg_4_6.png"
-bg5_path = r"pics/Cole_porter_blur_bg_3_5_2.png"
-bg6_path = r"pics/Cole_porter_blur_bg_6_2.png"
+bg1_path = r"../pics/Cole_porter_blur_bg_1_3.png"
+bg2_path = r"../pics/Cole_porter_blur_bg_2_5.png"
+bg3_path = r"../pics/Cole_porter_blur_bg_3_3.png"
+bg4_path = r"../pics/Cole_porter_blur_bg_4_6.png"
+bg5_path = r"../pics/Cole_porter_blur_bg_3_5_2.png"
+bg6_path = r"../pics/Cole_porter_blur_bg_6_2.png"
 
 dict_singers_pics = {}
 
-dict_singers_pics['Cole Porter'] = "pics/singers_pics/Coleporter.jpg"
-dict_singers_pics['Dionne Warwick'] = "pics/singers_pics/Dionne_Warwick_2021.jpg"
-dict_singers_pics['Ella Fitzgerald'] = "pics/singers_pics/Ella Fitzgerald.jpg"
-dict_singers_pics['Ethel Merman'] = "pics/singers_pics/Ethel_merman_1967.jpg"
-dict_singers_pics['Frank Sinatra'] = "pics/singers_pics/Frank Sinatra.jpg"
-dict_singers_pics['Harry Connick'] = "pics/singers_pics/Harry_Connick.jpg"
-dict_singers_pics['Patti Lupone'] = "pics/singers_pics/Patti-LuPone.jpg"
-dict_singers_pics['Sutton Foster'] = "pics/singers_pics/Sutton-Foster.jpg"
-dict_singers_pics['Nat King Cole'] = "pics/singers_pics/Nat King Cole.jpg"
-dict_singers_pics['Sarah Vaughan'] = "pics/singers_pics/Sarah Vaughan 2.jpg"
-dict_singers_pics['Ray Charles'] = "pics/singers_pics/Ray_Charles.jpg"
-dict_singers_pics['Louis Armstrong'] = "pics/singers_pics/Louis_Armstrong.jpg"
-dict_singers_pics['Sutton Foster -  Tap dances'] = "pics/singers_pics/Sutton-Foster - tap dances-3.gif"
+dict_singers_pics['Cole Porter'] = "../pics/singers_pics/Coleporter.jpg"
+dict_singers_pics['Dionne Warwick'] = "../pics/singers_pics/Dionne_Warwick_2021.jpg"
+dict_singers_pics['Ella Fitzgerald'] = "../pics/singers_pics/Ella Fitzgerald.jpg"
+dict_singers_pics['Ethel Merman'] = "../pics/singers_pics/Ethel_merman_1967.jpg"
+dict_singers_pics['Frank Sinatra'] = "../pics/singers_pics/Frank Sinatra.jpg"
+dict_singers_pics['Harry Connick'] = "../pics/singers_pics/Harry_Connick.jpg"
+dict_singers_pics['Patti Lupone'] = "../pics/singers_pics/Patti-LuPone.jpg"
+dict_singers_pics['Sutton Foster'] = "../pics/singers_pics/Sutton-Foster.jpg"
+dict_singers_pics['Nat King Cole'] = "../pics/singers_pics/Nat King Cole.jpg"
+dict_singers_pics['Sarah Vaughan'] = "../pics/singers_pics/Sarah Vaughan 2.jpg"
+dict_singers_pics['Ray Charles'] = "../pics/singers_pics/Ray_Charles.jpg"
+dict_singers_pics['Louis Armstrong'] = "../pics/singers_pics/Louis_Armstrong.jpg"
+dict_singers_pics['Sutton Foster -  Tap dances'] = "../pics/singers_pics/Sutton-Foster - tap dances-3.gif"
 
 dict_songs = {}
 dict_songs['Anything goes'] = 'Anything goes'
@@ -151,8 +151,8 @@ elif selected == "Who sang ?":
         """<div style="text-align: justify;font-size:16px"><font color=#FFFFFF>If you have songs of which you don't know the singer and which can be sung by the following singers: Louis Armstrong, Nat king Cole, Ray Charles, Frank Sinatra, Sarah Vaughan, Ethel Merman and Ella Fitzgerald, you can predict the real singer through this app. It can do this with an accuracy of 85.2%. It can also predict the most likely song with 78.6% accuracy.</font></div>""",
         unsafe_allow_html=True)
     prediction_form.markdown("""<div style="text-align: left;font-size:16px"><font color=#FFFFFF>Enter a Cole Porter song:</font></div>""", unsafe_allow_html=True)
-    model_path = r'pickle/Cole-Porter-mfcc-neural-network-model-95p.h5'
-    l_encoder_path = 'pickle/Cole-Porter-label-encoder.pkl'
+    model_path = r'../pickle/Cole-Porter-mfcc-neural-network-model-95p.h5'
+    l_encoder_path = '../pickle/Cole-Porter-label-encoder.pkl'
     try:
         file = prediction_form.file_uploader("",type=['mp3', 'ogg', 'flac', 'm4a'], accept_multiple_files=False, key="precition_file_uploader")
     except Exception as e:
@@ -161,7 +161,7 @@ elif selected == "Who sang ?":
     if is_clk_pred:
         extracted_features_pred = []
         try:
-            relative_path = r'Data/Test/' + file.name
+            relative_path = r'../Data/Test/' + file.name
             with open(relative_path, mode='wb') as f:
                 f.write(file.getvalue())
             data = features_extractor(relative_path)
@@ -217,7 +217,7 @@ elif selected == "Who sang ?":
                 prediction_form.markdown(
                     """<div style="text-align: left;font-size:17px"><font color=#FFFFFF>Its a </font><font color=#204E1E>Tap dances</font><font color=#FFFFFF> song !</font></div>""",
                     unsafe_allow_html=True)
-            directory = 'Data/songs - ogg - Orig'
+            directory = '../Data/songs - ogg - Orig'
             try:
                 for song in glob.iglob(f'{directory}/*'):
                     sg = song.replace("\\", "/")
@@ -261,19 +261,19 @@ elif selected == "Who sang ?":
             prediction_form.error("Can't predict the Data.")
 elif selected == 'Songs per Singer':
     dict_singers_pics_2 = {}
-    dict_singers_pics_2['Cole Porter'] = "pics/singers_pics_s_singer/Coleporter_3.jpg"
-    dict_singers_pics_2['Dionne Warwick'] = "pics/singers_pics_s_singer/Dionne_Warwick_2021_3.jpg"
-    dict_singers_pics_2['Ella Fitzgerald'] = "pics/singers_pics_s_singer/Ella Fitzgerald_3.jpg"
-    dict_singers_pics_2['Ethel Merman'] = "pics/singers_pics_s_singer/Ethel_merman_1967_3.jpg"
-    dict_singers_pics_2['Frank Sinatra'] = "pics/singers_pics_s_singer/Frank Sinatra_3.jpg"
-    dict_singers_pics_2['Harry Connick'] = "pics/singers_pics_s_singer/Harry_Connick_3.jpg"
-    dict_singers_pics_2['Patti Lupone'] = "pics/singers_pics_s_singer/Patti-LuPone_3.jpg"
-    dict_singers_pics_2['Sutton Foster'] = "pics/singers_pics_s_singer/Sutton-Foster_3.jpg"
-    dict_singers_pics_2['Nat King Cole'] = "pics/singers_pics_s_singer/Nat King Cole_3.jpg"
-    dict_singers_pics_2['Sarah Vaughan'] = "pics/singers_pics_s_singer/Sarah Vaughan 2_3.jpg"
-    dict_singers_pics_2['Ray Charles'] = "pics/singers_pics_s_singer/Ray_Charles_3.jpg"
-    dict_singers_pics_2['Louis Armstrong'] = "pics/singers_pics_s_singer/Louis_Armstrong_3.jpg"
-    dict_singers_pics_2['Sutton Foster -  Tap dances'] = "pics/singers_pics_s_singer/Sutton-Foster_3.jpg"
+    dict_singers_pics_2['Cole Porter'] = "../pics/singers_pics_s_singer/Coleporter_3.jpg"
+    dict_singers_pics_2['Dionne Warwick'] = "../pics/singers_pics_s_singer/Dionne_Warwick_2021_3.jpg"
+    dict_singers_pics_2['Ella Fitzgerald'] = "../pics/singers_pics_s_singer/Ella Fitzgerald_3.jpg"
+    dict_singers_pics_2['Ethel Merman'] = "../pics/singers_pics_s_singer/Ethel_merman_1967_3.jpg"
+    dict_singers_pics_2['Frank Sinatra'] = "../pics/singers_pics_s_singer/Frank Sinatra_3.jpg"
+    dict_singers_pics_2['Harry Connick'] = "../pics/singers_pics_s_singer/Harry_Connick_3.jpg"
+    dict_singers_pics_2['Patti Lupone'] = "../pics/singers_pics_s_singer/Patti-LuPone_3.jpg"
+    dict_singers_pics_2['Sutton Foster'] = "../pics/singers_pics_s_singer/Sutton-Foster_3.jpg"
+    dict_singers_pics_2['Nat King Cole'] = "../pics/singers_pics_s_singer/Nat King Cole_3.jpg"
+    dict_singers_pics_2['Sarah Vaughan'] = "../pics/singers_pics_s_singer/Sarah Vaughan 2_3.jpg"
+    dict_singers_pics_2['Ray Charles'] = "../pics/singers_pics_s_singer/Ray_Charles_3.jpg"
+    dict_singers_pics_2['Louis Armstrong'] = "../pics/singers_pics_s_singer/Louis_Armstrong_3.jpg"
+    dict_singers_pics_2['Sutton Foster -  Tap dances'] = "../pics/singers_pics_s_singer/Sutton-Foster_3.jpg"
     set_background(st, bg3_path)
     st.markdown('## <font color=#FFFFFF>Songs per Singer</font>', unsafe_allow_html=True)
     st.markdown("""<div style="text-align: left;font-size:16px"><font color=#FFFFFF>Choose the singer:</font></div>""", unsafe_allow_html=True)
@@ -309,7 +309,7 @@ elif selected == 'Songs per Singer':
 
     songs_found = False
     # assign directory
-    directory = 'Data/songs - ogg - Orig'
+    directory = '../Data/songs - ogg - Orig'
     try:
         for song in glob.iglob(f'{directory}/*'):
             for sgr in glob.iglob(f'{song}/*'):
@@ -363,7 +363,7 @@ elif selected == 'Singers per song':
                              dict_songs['You re the top']))
     songs_found = False
     # assign directory
-    directory = 'Data/songs - ogg - Orig'
+    directory = '../Data/songs - ogg - Orig'
     try:
         for song in glob.iglob(f'{directory}/*'):
             song = song.replace("\\", "/")
@@ -445,7 +445,7 @@ elif (selected == 'Storage Cloud'):
         for i in range(6):
             if i== 0:
                 try:
-                    relative_path = r'Data/Test/' + file.name
+                    relative_path = r'../Data/Test/' + file.name
                     sourceBucketName = bucketName
                     sourceObjectKey = file.name
                     objectKey = sourceObjectKey + '-back'
