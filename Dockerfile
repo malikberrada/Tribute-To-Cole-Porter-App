@@ -6,7 +6,7 @@ EXPOSE 8501
 
 WORKDIR /
 
-ADD /app ./app
+ADD /app .
 ADD /Data ./Data
 ADD /pickle ./pickle
 ADD /pics ./pics
