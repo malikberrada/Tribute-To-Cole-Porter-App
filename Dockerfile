@@ -4,7 +4,13 @@ FROM python:3.9-slim
 
 EXPOSE 8501
 
-WORKDIR ./app
+WORKDIR /app
+
+COPY /app .
+COPY /Data .
+COPY /pickle .
+COPY /pics .
+COPY requirements.txt .
 
 RUN apt-get update && apt-get install -y \
     build-essential \
@@ -12,7 +18,6 @@ RUN apt-get update && apt-get install -y \
     git \
     && rm -rf /var/lib/apt/lists/*
 
-RUN git clone https://github.com/malikberrada/Tribute-To-Cole-Porter-App.git .
 
 RUN apt-get -y update && apt-get -y install freeglut3-dev && apt-get -y install libgtk2.0-dev && apt-get -y install libasound2-dev && apt-get -y install libsndfile1-dev && apt-get -y install ffmpeg
 
