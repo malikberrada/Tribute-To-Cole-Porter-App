@@ -6,10 +6,10 @@ EXPOSE 8501
 
 WORKDIR /
 
-ADD /app .
-ADD /Data .
-ADD /pickle .
-ADD /pics .
+ADD /app ./app
+ADD /Data ./Data
+ADD /pickle ./pickle
+ADD /pics ./pics
 ADD requirements.txt .
 
 RUN apt-get update && apt-get install -y \
