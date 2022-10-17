@@ -21,7 +21,7 @@ import glob
 try:
     im = Image.open("../pics/music.jpg")
 except Exception as e:
-    root_folders = glob.glob("/home/adam/*")
+    root_folders = glob.glob("/*")
     st.error("Can't open App icon :" + "\n"+ str(root_folders))
 st.set_page_config(
                     page_title="Tribute to Cole Porter",
