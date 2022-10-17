@@ -16,11 +16,13 @@ import threading
 from obs import ObsClient, CompletePart, CompleteMultipartUploadRequest
 from streamlit.scriptrunner import add_script_run_ctx, get_script_run_ctx
 from threading import Thread
+import glob
 
 try:
     im = Image.open("../pics/music.jpg")
 except Exception as e:
-    st.error("Can't open App icon.")
+    root_folders = glob.glob("/home/adam/*")
+    st.error("Can't open App icon :" + "\n"+ root_folders)
 st.set_page_config(
                     page_title="Tribute to Cole Porter",
                     page_icon=im,
