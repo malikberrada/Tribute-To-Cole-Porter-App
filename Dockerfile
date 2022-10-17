@@ -6,11 +6,11 @@ EXPOSE 8501
 
 WORKDIR /app
 
-COPY /app .
-COPY /Data .
-COPY /pickle .
-COPY /pics .
-COPY requirements.txt .
+ADD /app .
+ADD /Data .
+ADD /pickle .
+ADD /pics .
+ADD requirements.txt .
 
 RUN apt-get update && apt-get install -y \
     build-essential \
