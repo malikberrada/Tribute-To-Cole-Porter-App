@@ -648,7 +648,7 @@ else:
         """<div style="text-align: left;font-size:19px"><font color=#FBFBFB>1. "Home" tab:</font></div><br>""",
         unsafe_allow_html=True)
     st.markdown(
-        """<div style="text-align: justify;font-size:16px"><font color=#FBFBFB>This tab displays the summary of Cole Porter's biography:</font></div>""",
+        """<div style="text-align: justify;font-size:16px"><font color=#FBFBFB>This tab displays the summary of Cole Porter's biography:</font></div><br>""",
         unsafe_allow_html=True)
     try:
         image = Image.open("../pics/Home.png")
