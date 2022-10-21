@@ -39,7 +39,7 @@ with st.sidebar:
         icons=['house', 'bi bi-music-note-list', 'bi bi-music-note', 'bi bi-cloud-upload', 'bi bi-cloud-download', 'bi bi-robot', 'bi bi-bug', 'bi bi-info-circle'], menu_icon="cast", default_index=0, \
  \
        styles={
-           "container": {"background-image": f"""url(data:image/{side_bg_ext};base64,{base64.b64encode(open(side_bg, "rb").read()).decode()});background-repeat:no-repeat"""
+           "container": {"background-image": f"""url(data:image/{side_bg_ext};base64,{base64.b64encode(open(side_bg, "rb").read()).decode()});background-repeat:repeat"""
     },
            "icon": {"color": "#FFFFFF"},
            "nav-link-selected": {"background-color": "#616161", "opacity": 0.66},
