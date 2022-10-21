@@ -34,7 +34,7 @@ side_bg_ext = "png"
 side_bg = "../pics/Happy-Cole-Porter-3.png"
 
 with st.sidebar:
-    selected = option_menu("Main Menu", ["Home", 'Songs per Singer', 'Singers per song', 'Storage Cloud', 'Cloud Playback', 'Who sang ?'\
+    selected = option_menu("Main Menu", ["Home", 'Songs per Singer', 'Singers per song', 'Storage Cloud', 'Cloud Playback', 'Who sang ?', 'Report a bug', 'Get help'\
                                        ],
         icons=['house', 'bi bi-music-note-list', 'bi bi-music-note', 'bi bi-cloud-upload', 'bi bi-cloud-download', 'bi bi-robot'], menu_icon="cast", default_index=0, \
  \
@@ -89,6 +89,7 @@ bg3_path = r"../pics/Cole_porter_blur_bg_3_3.png"
 bg4_path = r"../pics/Cole_porter_blur_bg_4_6.png"
 bg5_path = r"../pics/Cole_porter_blur_bg_3_5_2.png"
 bg6_path = r"../pics/Cole_porter_blur_bg_6_2.png"
+bg7_path = side_bg
 
 dict_singers_pics = {}
 
@@ -590,7 +591,7 @@ elif (selected == 'Storage Cloud'):
                 except Exception as e:
                     st.error("We can't upload the song.")
 
-else:
+elif selected == "Cloud Playback":
     download_form = st.form("download_form")
     set_background(download_form, bg6_path)
     download_form.markdown('## <font color=#FBFBFB>Cloud Playback</font>', unsafe_allow_html=True)
@@ -632,3 +633,41 @@ else:
                 st.error("We can't download the song.")
         else:
             st.error('Wrong filename.')
+
+elif selected == 'Report a bug':
+    set_background(st, bg7_path)
+    download_form.markdown('## <font color=#FBFBFB>Report a bug</font>', unsafe_allow_html=True)
+    download_form.markdown(
+        """<div style="text-align: left;font-size:16px"><font color=#FBFBFB>If you notice any bug, please contact the support service at: abdelmalik.berrada@gmail.com</font></div>""",
+        unsafe_allow_html=True)
+
+else:
+    set_background(st, bg7_path)
+    st.markdown('## <font color=#FBFBFB>Get help</font>', unsafe_allow_html=True)
+    st.markdown(
+        """<div style="text-align: left;font-size:18px"><font color=#FBFBFB>1. "Home" tab:</font></div>""",
+        unsafe_allow_html=True)
+    st.markdown(
+        """<div style="text-align: justify;font-size:16px"><font color=#FBFBFB>This tab displays the summary of Cole Porter's biography:</font></div>""",
+        unsafe_allow_html=True)
+    try:
+        image = Image.open("../pics/Home.png")
+    except Exception as e:
+        st.error("Can't open the image.")
+    st.image(image, caption="Cole Porter's biography")
+    st.markdown(
+        """<div style="text-align: left;font-size:18px"><font color=#FBFBFB>1. "Songs per Singer" tab:</font></div>""",
+        unsafe_allow_html=True)
+    st.markdown(
+        """<div style="text-align: justify;font-size:16px"><font color=#FBFBFB>This tab displays Cole Porter songs by singer. It allows to choose one of the main singers of Cole Porter, to listen to his songs and to download them:</font></div>""",
+        unsafe_allow_html=True)
+    try:
+        image = Image.open("../pics/Songs per Singer - 1.png")
+    except Exception as e:
+        st.error("Can't open the image.")
+    st.image(image, caption="Songs per singer")
+    try:
+        image = Image.open("../pics/Songs per Singer - 2.png")
+    except Exception as e:
+        st.error("Can't open the image.")
+    st.image(image, caption="Songs per singer 2")
