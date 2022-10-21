@@ -636,8 +636,8 @@ elif selected == "Cloud Playback":
 
 elif selected == 'Report a bug':
     set_background(st, bg7_path)
-    download_form.markdown('## <font color=#FBFBFB>Report a bug</font>', unsafe_allow_html=True)
-    download_form.markdown(
+    st.markdown('## <font color=#FBFBFB>Report a bug</font>', unsafe_allow_html=True)
+    st.markdown(
         """<div style="text-align: left;font-size:16px"><font color=#FBFBFB>If you notice any bug, please contact the support service at: abdelmalik.berrada@gmail.com</font></div>""",
         unsafe_allow_html=True)
 
