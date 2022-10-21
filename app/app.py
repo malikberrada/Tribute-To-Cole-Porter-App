@@ -645,7 +645,7 @@ else:
     set_background(st, bg7_path)
     st.markdown('## <font color=#FBFBFB>Get help</font>', unsafe_allow_html=True)
     st.markdown(
-        """<div style="text-align: left;font-size:18px"><font color=#FBFBFB>1. "Home" tab:</font></div>""",
+        """<div style="text-align: left;font-size:19px"><font color=#FBFBFB>1. "Home" tab:</font></div>""",
         unsafe_allow_html=True)
     st.markdown(
         """<div style="text-align: justify;font-size:16px"><font color=#FBFBFB>This tab displays the summary of Cole Porter's biography:</font></div>""",
