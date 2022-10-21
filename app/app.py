@@ -656,7 +656,7 @@ else:
         st.error("Can't open the image.")
     st.image(image, caption="Cole Porter's biography")
     st.markdown(
-        """<div style="text-align: left;font-size:18px"><font color=#FBFBFB>1. "Songs per Singer" tab:</font></div><br>""",
+        """<div style="text-align: left;font-size:18px"><font color=#FBFBFB>2. "Songs per Singer" tab:</font></div><br>""",
         unsafe_allow_html=True)
     st.markdown(
         """<div style="text-align: justify;font-size:16px"><font color=#FBFBFB>This tab displays Cole Porter songs by singer. It allows to choose one of the main singers of Cole Porter, to listen to his songs and to download them:</font></div><br>""",
@@ -672,7 +672,7 @@ else:
         st.error("Can't open the image.")
     st.image(image, caption="Songs per singer 2")
     st.markdown(
-        """<div style="text-align: left;font-size:18px"><font color=#FBFBFB>1. "Singers per song" tab:</font></div><br>""",
+        """<div style="text-align: left;font-size:18px"><font color=#FBFBFB>3. "Singers per song" tab:</font></div><br>""",
         unsafe_allow_html=True)
     st.markdown(
         """<div style="text-align: justify;font-size:16px"><font color=#FBFBFB>This tab displays the main singers of Cole Porter by song. It allows you to choose a Cole Porter song, listen to it (sung by several singers) and download them.</font></div><br>""",
@@ -688,7 +688,7 @@ else:
         st.error("Can't open the image.")
     st.image(image, caption="Singers per song 2")
     st.markdown(
-        """<div style="text-align: left;font-size:18px"><font color=#FBFBFB>1. "Storage Cloud" tab:</font></div><br>""",
+        """<div style="text-align: left;font-size:18px"><font color=#FBFBFB>4. "Storage Cloud" tab:</font></div><br>""",
         unsafe_allow_html=True)
     st.markdown(
         """<div style="text-align: justify;font-size:16px"><font color=#FBFBFB>This tab allows you to upload a Cole Porter song to the Huawei Cloud. You can enter the song and upload it:</font></div><br>""",
@@ -709,7 +709,7 @@ else:
         st.error("Can't open the image.")
     st.image(image, caption="Storage Cloud 3")
     st.markdown(
-        """<div style="text-align: left;font-size:18px"><font color=#FBFBFB>1. "Cloud Playback" tab:</font></div><br>""",
+        """<div style="text-align: left;font-size:18px"><font color=#FBFBFB>5. "Cloud Playback" tab:</font></div><br>""",
         unsafe_allow_html=True)
     st.markdown(
         """<div style="text-align: justify;font-size:16px"><font color=#FBFBFB>This tab allows you to play a song uploaded to the Cloud. You can enter the file name of the song. Then you have to load it. Then you can listen to it and download it:</font></div><br>""",
@@ -735,7 +735,7 @@ else:
         st.error("Can't open the image.")
     st.image(image, caption="Cloud downloading")
     st.markdown(
-        """<div style="text-align: left;font-size:18px"><font color=#FBFBFB>1. "Who sang ?" tab:</font></div><br>""",
+        """<div style="text-align: left;font-size:18px"><font color=#FBFBFB>6. "Who sang ?" tab:</font></div><br>""",
         unsafe_allow_html=True)
     st.markdown(
         """<div style="text-align: justify;font-size:16px"><font color=#FBFBFB>If the user listens to a song of which he does not know the singer, the application can search for it for him, provided that it is sung by the following singers: Louis Armstrong, Nat king Cole, Ray Charles, Frank Sinatra, Sarah Vaughan, Ethel Merman and Ella Fitzgerald. You can enter the song and predict it:</font></div><br>""",
